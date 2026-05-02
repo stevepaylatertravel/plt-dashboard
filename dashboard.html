@@ -185,6 +185,21 @@
     </div>
   </div>
 
+  <!-- FX Rates -->
+  <div class="section-label">AUD Exchange Rates</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">AUD/USD Monthly Average</div>
+      <div class="card-sub">May 25 – May 26 · RBA daily rates averaged · 0.644 → 0.709</div>
+      <div class="chart-wrap"><canvas id="o_fx_audusd"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">AUD vs All Entity Currencies</div>
+      <div class="card-sub">AUD/USD, AUD/GBP, AUD/CAD · AUD strengthened ~10% vs USD since May 25</div>
+      <div class="chart-wrap"><canvas id="o_fx_multi"></canvas></div>
+    </div>
+  </div>
+
   <!-- Bookings & Value -->
   <div class="section-label">Bookings &amp; Revenue</div>
   <div class="grid-2">
@@ -674,7 +689,30 @@
     sp_us_amt:   [21330,36489,29800,35377],
   };
 
+  // ──────────────── FX Data (RBA daily rates, monthly averages) ────────────────
+  // Source: Reserve Bank of Australia F11.1 table, May 2025 – May 2026
+  // M13: May 25, Jun 25, Jul 25, Aug 25, Sep 25, Oct 25, Nov 25, Dec 25, Jan 26, Feb 26, Mar 26, Apr 26, May 26
+  const fx = {
+    audusd: [0.6441,0.6495,0.6544,0.6491,0.6593,0.6545,0.6507,0.6637,0.6778,0.7055,0.7024,0.7090,0.7191],
+    audgbp: [0.4820,0.4792,0.4843,0.4828,0.4882,0.4897,0.4954,0.4964,0.5015,0.5193,0.5263,0.5272,0.5292],
+    audcad: [0.8929,0.8887,0.8952,0.8962,0.9116,0.9155,0.9146,0.9170,0.9346,0.9629,0.9628,0.9756,0.9770],
+    // MoM % change in AUD/USD (null for first month)
+    mom_usd: [null,+0.84,+0.75,-0.81,+1.57,-0.73,-0.58,+2.00,+2.12,+4.08,-0.44,+0.94,+1.42],
+  };
+
   // ──────────────── Overall Charts ────────────────
+
+  // FX: AUD/USD
+  mkLine('o_fx_audusd', M12, [
+    { label: 'AUD/USD', data: fx.audusd, borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)', borderWidth: 2.5, pointRadius: 3.5, fill: true, tension: 0.3 },
+  ], v => (+v).toFixed(4));
+
+  // FX: Multi-currency
+  mkLine('o_fx_multi', M12, [
+    { label: 'AUD/USD', data: fx.audusd, borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, tension: 0.3 },
+    { label: 'AUD/GBP', data: fx.audgbp, borderColor: '#a855f7', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.3 },
+    { label: 'AUD/CAD', data: fx.audcad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.3 },
+  ], v => (+v).toFixed(4));
 
   // Bookings
   mkBar('o_bookings', M10, [
