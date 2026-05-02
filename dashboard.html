@@ -58,6 +58,7 @@
     .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 6px; }
     .kpi-value { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
     .kpi-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+    .kpi-vs { font-size: 10px; color: var(--muted); margin-top: 3px; }
     .kpi-pill { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 20px; margin-top: 5px; }
     .pill-g { background: rgba(16,185,129,0.15); color: var(--green); }
     .pill-a { background: rgba(245,158,11,0.15); color: var(--amber); }
@@ -105,55 +106,63 @@
 <!-- ═══════════════════ OVERALL ═══════════════════ -->
 <div id="overall" class="section active">
 
-  <!-- KPI Cards -->
+  <!-- KPI Cards — This Month (Apr 26) vs Last Month (Mar 26) -->
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Total Bookings</div>
-      <div class="kpi-value">68,184</div>
-      <div class="kpi-sub">Jul 25 – May 26</div>
-      <span class="kpi-pill pill-a">Avg 6,818/mo</span>
+      <div class="kpi-value">5,402</div>
+      <div class="kpi-sub">Apr 2026</div>
+      <span class="kpi-pill pill-r">▼ 21.6% vs Mar</span>
+      <div class="kpi-vs">Mar: 6,894</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Booking Value</div>
-      <div class="kpi-value">$105.6M</div>
-      <div class="kpi-sub">AUD · Jul 25 – May 26</div>
-      <span class="kpi-pill pill-g">Avg $10.6M/mo</span>
+      <div class="kpi-value">$9.3M</div>
+      <div class="kpi-sub">AUD · Apr 2026</div>
+      <span class="kpi-pill pill-r">▼ 21.0% vs Mar</span>
+      <div class="kpi-vs">Mar: $11.7M</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Gross Margin $</div>
-      <div class="kpi-value">$18.2M</div>
-      <div class="kpi-sub">Mixed currencies · 12M</div>
-      <span class="kpi-pill pill-g">~16% avg</span>
+      <div class="kpi-label">Gross Margin %</div>
+      <div class="kpi-value">17.7%</div>
+      <div class="kpi-sub">All PLT entities · Apr 26</div>
+      <span class="kpi-pill pill-g">▲ +0.1pp vs Mar</span>
+      <div class="kpi-vs">Mar: 17.6%</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Deposits Collected</div>
-      <div class="kpi-value">$18.4M</div>
-      <div class="kpi-sub">Mixed currencies · 12M</div>
-      <span class="kpi-pill pill-a">~19% avg rate</span>
+      <div class="kpi-label">Deposit Rate</div>
+      <div class="kpi-value">19.1%</div>
+      <div class="kpi-sub">Avg PLT · Apr 2026</div>
+      <span class="kpi-pill pill-a">▼ −0.5pp vs Mar</span>
+      <div class="kpi-vs">Mar: 19.6%</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">New Customers</div>
-      <div class="kpi-value">42,583</div>
-      <div class="kpi-sub">May 25 – May 26</div>
-      <span class="kpi-pill pill-a">Avg 3,276/mo</span>
+      <div class="kpi-value">3,342</div>
+      <div class="kpi-sub">Apr 2026</div>
+      <span class="kpi-pill pill-r">▼ 18.3% vs Mar</span>
+      <div class="kpi-vs">Mar: 4,092</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Avg Tenor</div>
-      <div class="kpi-value">11.7 wks</div>
-      <div class="kpi-sub">~2.7 months</div>
-      <span class="kpi-pill pill-a">Range 10–12.5</span>
+      <div class="kpi-value">10.8 wks</div>
+      <div class="kpi-sub">PLT overall · Apr 2026</div>
+      <span class="kpi-pill pill-a">▼ 1.0 wk vs Mar</span>
+      <div class="kpi-vs">Mar: 11.8 wks</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Cancellations</div>
-      <div class="kpi-value">12,668</div>
-      <div class="kpi-sub">May 25 – Feb 26</div>
-      <span class="kpi-pill pill-a">Avg 1,267/mo</span>
+      <div class="kpi-value">1,181</div>
+      <div class="kpi-sub">Feb 26 (latest stable)</div>
+      <span class="kpi-pill pill-g">▼ 11.9% vs Jan</span>
+      <div class="kpi-vs">Jan: 1,340</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Arrears (Apr 26)</div>
-      <div class="kpi-value">434</div>
-      <div class="kpi-sub">Plans overdue · $161K</div>
-      <span class="kpi-pill pill-r">Peak 984 Jan 26</span>
+      <div class="kpi-label">Arrears Rate</div>
+      <div class="kpi-value">11.1%</div>
+      <div class="kpi-sub">Mar 26 cohort · 781 plans</div>
+      <span class="kpi-pill pill-g">▼ −1.1pp vs Feb</span>
+      <div class="kpi-vs">Feb: 12.2% · cohort view</div>
     </div>
   </div>
 
