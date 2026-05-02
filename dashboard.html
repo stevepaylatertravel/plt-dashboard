@@ -505,8 +505,8 @@
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     event.target.classList.add('active');
-    if (id === 'entity' && !entityInitialized) initEntityCharts();
-    if (id === 'stripe' && !stripeInitialized) initStripeCharts();
+    if (id === 'entity' && !entityInitialized) { entityInitialized = true; requestAnimationFrame(initEntityCharts); }
+    if (id === 'stripe' && !stripeInitialized) { stripeInitialized = true; requestAnimationFrame(initStripeCharts); }
   }
   function showEntity(e) {
     document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
