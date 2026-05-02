@@ -101,6 +101,7 @@
 <div class="nav">
   <button class="nav-btn active" onclick="showTab('overall')">Overall</button>
   <button class="nav-btn" onclick="showTab('entity')">By Entity</button>
+  <button class="nav-btn" onclick="showTab('stripe')">Stripe Data</button>
 </div>
 
 <!-- ═══════════════════ OVERALL ═══════════════════ -->
@@ -168,21 +169,6 @@
 
   <div class="note">
     ⚠ <strong>Data notes:</strong> Margin &amp; deposit totals are in native booking currencies (AUD, USD, GBP, CAD) — not FX-converted. Refund data available Dec 2025 onwards (Stripe pipeline). Apr 2026 Stripe activity is partial (pipeline stalled Apr 7). May 2026 data is partial (first 2 days only). Mar 2026 cancellations show only 4 records — likely data lag. Arrears shown by payment plan creation month (cohort view). SP margin data starts Oct 2025 (prior months showed inconsistent recording).
-  </div>
-
-  <!-- TTV -->
-  <div class="section-label">Total Transaction Value (Stripe)</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">Monthly TTV — All Entities (AUD)</div>
-      <div class="card-sub">Dec 2025 – Mar 2026 · Stripe charges in AUD equivalent</div>
-      <div class="chart-wrap"><canvas id="o_ttv_total"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Monthly TTV by Entity (AUD)</div>
-      <div class="card-sub">PLT_USD growing fastest · SP entities stable</div>
-      <div class="chart-wrap"><canvas id="o_ttv_entity"></canvas></div>
-    </div>
   </div>
 
   <!-- FX Rates -->
@@ -337,20 +323,8 @@
     </div>
   </div>
 
-  <!-- Refunds & Arrears -->
-  <div class="section-label">Refunds &amp; Arrears</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">Monthly Refund Count</div>
-      <div class="card-sub">From Stripe · Dec 25 – Mar 26 · Apr partial</div>
-      <div class="chart-wrap"><canvas id="o_refund_cnt"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Monthly Refund Amount (AUD)</div>
-      <div class="card-sub">AUD equivalent · Dec 25 – Mar 26</div>
-      <div class="chart-wrap"><canvas id="o_refund_amt"></canvas></div>
-    </div>
-  </div>
+  <!-- Arrears -->
+  <div class="section-label">Arrears</div>
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Plans in Arrears by Cohort</div>
@@ -397,19 +371,6 @@
       <div class="chart-wrap h280"><canvas id="e_bookings_pct"></canvas></div>
     </div>
   </div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">TTV by Entity — Stacked (AUD)</div>
-      <div class="card-sub">Dec 25 – Mar 26 · PLT_USD now the largest entity by TTV</div>
-      <div class="chart-wrap"><canvas id="e_ttv_stacked"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">TTV by Entity — Mix %</div>
-      <div class="card-sub">Share of total TTV per month</div>
-      <div class="chart-wrap"><canvas id="e_ttv_pct"></canvas></div>
-    </div>
-  </div>
-
   <!-- Margin by entity -->
   <div class="section-label">Gross Margin by Entity</div>
   <div class="grid-2">
@@ -467,8 +428,61 @@
     </div>
   </div>
 
+
+<!-- ═══════════════════ STRIPE ═══════════════════ -->
+<div id="stripe" class="section">
+
+  <div class="note">
+    ⚠ <strong>Stripe pipeline note:</strong> TTV and refund data covers Dec 2025 – Mar 2026. Apr 2026 is partial (pipeline stalled Apr 7). May 2026 not yet available.
+  </div>
+
+  <!-- TTV overall -->
+  <div class="section-label">Total Transaction Value</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Monthly TTV — All Entities (AUD)</div>
+      <div class="card-sub">Dec 2025 – Mar 2026 · Stripe charges in AUD equivalent</div>
+      <div class="chart-wrap"><canvas id="o_ttv_total"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Monthly TTV by Entity (AUD)</div>
+      <div class="card-sub">PLT_USD growing fastest · SP entities stable</div>
+      <div class="chart-wrap"><canvas id="o_ttv_entity"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TTV by entity -->
+  <div class="section-label">TTV by Entity</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">TTV by Entity — Stacked (AUD)</div>
+      <div class="card-sub">Dec 25 – Mar 26 · PLT_USD now the largest entity by TTV</div>
+      <div class="chart-wrap"><canvas id="e_ttv_stacked"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">TTV by Entity — Mix %</div>
+      <div class="card-sub">Share of total TTV per month</div>
+      <div class="chart-wrap"><canvas id="e_ttv_pct"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Refunds overall -->
+  <div class="section-label">Refunds — Overall</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Monthly Refund Count</div>
+      <div class="card-sub">From Stripe · Dec 25 – Mar 26 · Apr partial</div>
+      <div class="chart-wrap"><canvas id="o_refund_cnt"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Monthly Refund Amount (AUD)</div>
+      <div class="card-sub">AUD equivalent · Dec 25 – Mar 26</div>
+      <div class="chart-wrap"><canvas id="o_refund_amt"></canvas></div>
+    </div>
+  </div>
+
   <!-- Refunds by entity -->
-  <div class="section-label">Refunds by Entity (Stripe · Dec 25 – Mar 26)</div>
+  <div class="section-label">Refunds by Entity</div>
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Refund Count by Entity</div>
@@ -492,6 +506,7 @@
     document.getElementById(id).classList.add('active');
     event.target.classList.add('active');
     if (id === 'entity' && !entityInitialized) initEntityCharts();
+    if (id === 'stripe' && !stripeInitialized) initStripeCharts();
   }
   function showEntity(e) {
     document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
@@ -1080,6 +1095,12 @@
       { label: 'SP US',   data: sp_us.instalments, borderColor: '#14b8a6', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, tension: 0.3, spanGaps: true, borderDash: [4,3] },
     ], null);
 
+  }
+
+  let stripeInitialized = false;
+  function initStripeCharts() {
+    stripeInitialized = true;
+
     // TTV stacked by entity
     mkEntityBar('e_ttv_stacked', M4, [
       { label: 'PLT_AUD', data: ttv.plt_aud, backgroundColor: '#6366f1' },
@@ -1108,7 +1129,6 @@
         scales: { x: { stacked: true, grid: G }, y: { stacked: true, grid: G, max: 100, ticks: { callback: v => (+v).toFixed(2).replace(/.?0+$/, '') + '%' } } }
       }
     });
-    entityCharts.push(ttvPctChart);
 
     // Refund count by entity
     mkEntityBar('e_refund_cnt', M4, [
