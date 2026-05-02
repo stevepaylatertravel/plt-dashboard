@@ -795,15 +795,7 @@
     { label: 'Fortnightly',  data: freq.fortnightly,  backgroundColor: '#3b82f6' },
   ], null, true);
 
-  // Refund count
-  mkBar('o_refund_cnt', M4, [{
-    label: 'Total Refunds', data: ref.cnt_total, backgroundColor: '#ef4444'
-  }], null);
-
-  // Refund amount
-  mkBar('o_refund_amt', M4, [{
-    label: 'Refund Amount (AUD)', data: ref.amt_aud, backgroundColor: '#f97316'
-  }], fmtK);
+  // Note: o_refund_cnt and o_refund_amt are initialized in initStripeCharts()
 
   // Arrears count
   mkBar('o_arrears_cnt', M_ARR, [{
@@ -820,19 +812,7 @@
     sp_us:   [555491,   547191,   526548,   384577],
   };
 
-  // Overall TTV bar
-  mkBar('o_ttv_total', M4, [{
-    label: 'Total TTV (AUD)', data: ttv.total, backgroundColor: '#6366f1'
-  }], v => '$' + (v/1e6).toFixed(1) + 'M');
-
-  // TTV by entity stacked line
-  mkBar('o_ttv_entity', M4, [
-    { label: 'PLT_AUD', data: ttv.plt_aud, backgroundColor: '#6366f1' },
-    { label: 'PLT_USD', data: ttv.plt_usd, backgroundColor: '#3b82f6' },
-    { label: 'PLT_GBP', data: ttv.plt_gbp, backgroundColor: '#a855f7' },
-    { label: 'SP_AU',   data: ttv.sp_au,   backgroundColor: '#10b981' },
-    { label: 'SP_US',   data: ttv.sp_us,   backgroundColor: '#14b8a6' },
-  ], v => '$' + (v/1e6).toFixed(1) + 'M', true);
+  // Note: o_ttv_total and o_ttv_entity are initialized in initStripeCharts()
 
   // Arrears amount
   mkBar('o_arrears_amt', M_ARR, [{
@@ -1100,6 +1080,28 @@
   let stripeInitialized = false;
   function initStripeCharts() {
     stripeInitialized = true;
+
+    // Overall TTV
+    mkBar('o_ttv_total', M4, [{
+      label: 'Total TTV (AUD)', data: ttv.total, backgroundColor: '#6366f1'
+    }], v => '$' + (v/1e6).toFixed(1) + 'M');
+
+    mkBar('o_ttv_entity', M4, [
+      { label: 'PLT_AUD', data: ttv.plt_aud, backgroundColor: '#6366f1' },
+      { label: 'PLT_USD', data: ttv.plt_usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT_GBP', data: ttv.plt_gbp, backgroundColor: '#a855f7' },
+      { label: 'SP_AU',   data: ttv.sp_au,   backgroundColor: '#10b981' },
+      { label: 'SP_US',   data: ttv.sp_us,   backgroundColor: '#14b8a6' },
+    ], v => '$' + (v/1e6).toFixed(1) + 'M', true);
+
+    // Overall refunds
+    mkBar('o_refund_cnt', M4, [{
+      label: 'Total Refunds', data: ref.cnt_total, backgroundColor: '#ef4444'
+    }], null);
+
+    mkBar('o_refund_amt', M4, [{
+      label: 'Refund Amount (AUD)', data: ref.amt_aud, backgroundColor: '#f97316'
+    }], fmtK);
 
     // TTV stacked by entity
     mkEntityBar('e_ttv_stacked', M4, [
