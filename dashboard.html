@@ -467,6 +467,33 @@
     </div>
   </div>
 
+  <!-- Stripe Fees -->
+  <div class="section-label">Stripe Fees</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Monthly Fees (AUD)</div>
+      <div class="card-sub">Jan 26 – Apr 26 · Dec 25 not available · total AUD equivalent</div>
+      <div class="chart-wrap"><canvas id="s_fees_total"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Fees by Entity (AUD)</div>
+      <div class="card-sub">Stacked · PLT_USD dominates due to volume</div>
+      <div class="chart-wrap"><canvas id="s_fees_entity"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Effective Fee Rate % by Entity</div>
+      <div class="card-sub">Fees ÷ TTV · SP entities pay higher rates than PLT</div>
+      <div class="chart-wrap"><canvas id="s_fees_rate"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Fees as % of TTV — Overall</div>
+      <div class="card-sub">Blended rate across all entities</div>
+      <div class="chart-wrap"><canvas id="s_fees_rate_total"></canvas></div>
+    </div>
+  </div>
+
   <!-- Refunds overall -->
   <div class="section-label">Refunds — Overall</div>
   <div class="grid-2">
@@ -813,7 +840,23 @@
     sp_us:   [555491,   547191,   526548,   380087,   301085],
   };
 
-  // Note: o_ttv_total and o_ttv_entity are initialized in initStripeCharts()
+  // Stripe fees (Dec 25 – Apr 26; Dec 25 fees not available in source)
+  const fees = {
+    total:   [null, 148241, 162354, 181236, 175973],
+    plt_aud: [null,  30703,  34688,  38624,  39024],
+    plt_usd: [null,  91013, 103604, 120730, 116342],
+    plt_gbp: [null,   2397,   2501,   2211,   1925],
+    sp_au:   [null,  13667,  11319,  11812,  12189],
+    sp_us:   [null,  10461,  10243,   7860,   6493],
+    // Effective fee rate % (fees / TTV * 100)
+    rate_aud: [null, 0.94, 0.88, 0.88, 0.96],
+    rate_usd: [null, 1.93, 1.82, 1.80, 1.84],
+    rate_gbp: [null, 0.98, 1.05, 1.01, 0.98],
+    rate_sp_au: [null, 1.26, 1.14, 1.09, 1.36],
+    rate_sp_us: [null, 1.91, 1.95, 2.07, 2.16],
+  };
+
+  // Note: o_ttv_total, o_ttv_entity, and fees charts are initialized in initStripeCharts()
 
   // Arrears amount
   mkBar('o_arrears_amt', M_ARR, [{
@@ -1150,6 +1193,36 @@
       { label: 'SP_AU',   data: ref.sp_au_amt,   backgroundColor: '#10b981' },
       { label: 'SP_US',   data: ref.sp_us_amt,   backgroundColor: '#14b8a6' },
     ], fmtK, true);
+
+    // Fees: total
+    mkBar('s_fees_total', M4, [{
+      label: 'Total Fees (AUD)', data: fees.total, backgroundColor: '#f59e0b'
+    }], fmtK);
+
+    // Fees: by entity stacked
+    mkEntityBar('s_fees_entity', M4, [
+      { label: 'PLT_AUD', data: fees.plt_aud, backgroundColor: '#6366f1' },
+      { label: 'PLT_USD', data: fees.plt_usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT_GBP', data: fees.plt_gbp, backgroundColor: '#a855f7' },
+      { label: 'SP_AU',   data: fees.sp_au,   backgroundColor: '#10b981' },
+      { label: 'SP_US',   data: fees.sp_us,   backgroundColor: '#14b8a6' },
+    ], fmtK, true);
+
+    // Fees: effective rate % by entity
+    mkLine('s_fees_rate', M4, [
+      { label: 'PLT_AUD', data: fees.rate_aud,   borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 4, tension: 0.3, spanGaps: true },
+      { label: 'PLT_USD', data: fees.rate_usd,   borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 4, tension: 0.3, spanGaps: true },
+      { label: 'PLT_GBP', data: fees.rate_gbp,   borderColor: '#a855f7', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 4, tension: 0.3, spanGaps: true },
+      { label: 'SP_AU',   data: fees.rate_sp_au, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 4, tension: 0.3, spanGaps: true },
+      { label: 'SP_US',   data: fees.rate_sp_us, borderColor: '#14b8a6', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 4, tension: 0.3, spanGaps: true },
+    ], v => (+v).toFixed(2) + '%');
+
+    // Fees: blended overall rate %
+    mkLine('s_fees_rate_total', M4, [{
+      label: 'Blended Fee Rate',
+      data: fees.total.map((f, i) => f == null ? null : +((f / ttv.total[i]) * 100).toFixed(2)),
+      borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], v => (+v).toFixed(2) + '%');
   }
 </script>
 </body>
