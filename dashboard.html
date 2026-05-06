@@ -494,6 +494,33 @@
     </div>
   </div>
 
+  <!-- Fee Breakdown -->
+  <div class="section-label">Fee Breakdown by Component</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Fee Components — Stacked (AUD)</div>
+      <div class="card-sub">Jan–Apr 26 · Interchange is largest cost · Dec 25 not available</div>
+      <div class="chart-wrap"><canvas id="s_fee_components"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Network Fees vs Stripe Fees (AUD)</div>
+      <div class="card-sub">Network = ICC + scheme fees (net of discounts) · Stripe = volume + per-auth</div>
+      <div class="chart-wrap"><canvas id="s_fee_split"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Interchange by Card Brand (AUD)</div>
+      <div class="card-sub">Visa dominates ~62% · Mastercard ~27% · Discover ~11%</div>
+      <div class="chart-wrap"><canvas id="s_icc_brand"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Rebates / Discounts (AUD)</div>
+      <div class="card-sub">Negotiated volume rebates applied against network costs</div>
+      <div class="chart-wrap"><canvas id="s_discounts"></canvas></div>
+    </div>
+  </div>
+
   <!-- Refunds overall -->
   <div class="section-label">Refunds — Overall</div>
   <div class="grid-2">
@@ -856,6 +883,27 @@
     rate_sp_us: [null, 1.91, 1.95, 2.07, 2.16],
   };
 
+  // Stripe fee breakdown by component (M4: Dec 25 = null, Jan–Apr 26)
+  // Source: FinTech_Metrics_Tracking.itemized_fees_all_entities
+  const feeBreakdown = {
+    interchange:  [null, 63752, 70825, 79062, 74866],
+    card_scheme:  [null, 26703, 27584, 31813, 34205],
+    volume_fee:   [null, 33738, 38849, 43008, 40547],
+    per_auth_fee: [null, 21781, 21774, 23619, 23651],
+    non_transact: [null,  2607,  3012,  2317,  1793],
+    discount:     [null,  2266,  3322,  3734,  2705],  // rebate — reduces net cost
+    // Derived: net network cost (interchange + scheme + non_transact - discount)
+    net_network:  [null, 90796, 98099,109458,108159],
+    // Derived: stripe fees total
+    stripe_fees:  [null, 55519, 60623, 66627, 64198],
+  };
+  // Interchange by card brand (M4)
+  const feeByBrand = {
+    visa:       [null, 40765, 45153, 48782, 46227],
+    mastercard: [null, 17793, 19006, 22265, 20429],
+    discover:   [null,  5194,  6666,  8015,  8210],
+  };
+
   // Note: o_ttv_total, o_ttv_entity, and fees charts are initialized in initStripeCharts()
 
   // Arrears amount
@@ -1193,6 +1241,33 @@
       { label: 'SP_AU',   data: ref.sp_au_amt,   backgroundColor: '#10b981' },
       { label: 'SP_US',   data: ref.sp_us_amt,   backgroundColor: '#14b8a6' },
     ], fmtK, true);
+
+    // Fee components stacked
+    mkEntityBar('s_fee_components', M4, [
+      { label: 'Interchange (ICC)', data: feeBreakdown.interchange, backgroundColor: '#ef4444' },
+      { label: 'Card Scheme',       data: feeBreakdown.card_scheme, backgroundColor: '#f97316' },
+      { label: 'Stripe Volume Fee', data: feeBreakdown.volume_fee,  backgroundColor: '#6366f1' },
+      { label: 'Stripe Per-Auth',   data: feeBreakdown.per_auth_fee,backgroundColor: '#3b82f6' },
+      { label: 'Non-Transact. Scheme', data: feeBreakdown.non_transact, backgroundColor: '#a855f7' },
+    ], fmtK, true);
+
+    // Network vs Stripe fee split
+    mkBar('s_fee_split', M4, [
+      { label: 'Network (ICC + Scheme, net)', data: feeBreakdown.net_network, backgroundColor: '#ef4444' },
+      { label: 'Stripe Fees',                 data: feeBreakdown.stripe_fees,  backgroundColor: '#6366f1' },
+    ], fmtK, true);
+
+    // Interchange by card brand
+    mkEntityBar('s_icc_brand', M4, [
+      { label: 'Visa',       data: feeByBrand.visa,       backgroundColor: '#1a56db' },
+      { label: 'Mastercard', data: feeByBrand.mastercard, backgroundColor: '#f97316' },
+      { label: 'Discover',   data: feeByBrand.discover,   backgroundColor: '#10b981' },
+    ], fmtK, true);
+
+    // Discounts / rebates
+    mkBar('s_discounts', M4, [{
+      label: 'Rebates (AUD)', data: feeBreakdown.discount, backgroundColor: '#10b981'
+    }], fmtK);
 
     // Fees: total
     mkBar('s_fees_total', M4, [{
