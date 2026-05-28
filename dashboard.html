@@ -92,6 +92,19 @@
   </style>
 </head>
 <body>
+<script>
+(function() {
+  var PASS = 'slicepay';
+  if (sessionStorage.getItem('plt_auth') !== PASS) {
+    var entered = prompt('PLT Dashboard — enter password:');
+    if (entered !== PASS) {
+      document.documentElement.innerHTML = '<body style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#0f1117;color:#8892a4"><p>Access denied.</p></body>';
+      return;
+    }
+    sessionStorage.setItem('plt_auth', PASS);
+  }
+})();
+</script>
 
 <div class="header">
   <h1>PayLater Travel — Monthly Dashboard</h1>
