@@ -115,6 +115,7 @@
   <button class="nav-btn active" onclick="showTab('overall')">Overall</button>
   <button class="nav-btn" onclick="showTab('entity')">By Entity</button>
   <button class="nav-btn" onclick="showTab('stripe')">Stripe Data</button>
+  <button class="nav-btn" onclick="showTab('marketing')">Marketing</button>
 </div>
 
 <!-- ═══════════════════ OVERALL ═══════════════════ -->
@@ -566,6 +567,97 @@
 
 </div>
 
+<div id="marketing" class="section">
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Monthly Revenue</div>
+      <div class="kpi-value">$1.79M</div>
+      <div class="kpi-sub">Apr 2026 (AUD)</div>
+      <span class="kpi-pill pill-r">▼ 14.6% vs Mar</span>
+      <div class="kpi-vs">Mar: $2.09M</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Repeat Booking %</div>
+      <div class="kpi-value">33.9%</div>
+      <div class="kpi-sub">Apr 2026</div>
+      <span class="kpi-pill pill-a">→ flat vs Mar</span>
+      <div class="kpi-vs">Mar: 33.9%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Marketing ROI</div>
+      <div class="kpi-value">379.8%</div>
+      <div class="kpi-sub">Apr 2026</div>
+      <span class="kpi-pill pill-g">▲ 49.2pp vs Mar</span>
+      <div class="kpi-vs">Mar: 330.6%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Ad Spend</div>
+      <div class="kpi-value">$372.6K</div>
+      <div class="kpi-sub">Apr 2026 (AUD)</div>
+      <span class="kpi-pill pill-g">▼ 23.4% vs Mar</span>
+      <div class="kpi-vs">Mar: $486.2K</div>
+    </div>
+  </div>
+
+  <div class="section-label">Monthly Revenue (AUD)</div>
+  <div class="chart-row">
+    <div class="card">
+      <div class="card-title">Total Revenue — Group</div>
+      <div class="card-sub">Margin earned by PLT group · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_revenue"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Revenue MoM % Change</div>
+      <div class="card-sub">Month-on-month growth · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_revenue_mom"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Customer Quality</div>
+  <div class="chart-row">
+    <div class="card">
+      <div class="card-title">Repeat Booking %</div>
+      <div class="card-sub">% of bookings from returning customers · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_repeat"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">New Customers vs Repeat Revenue</div>
+      <div class="card-sub">Revenue split by new vs repeat · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_rev_split"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Marketing Spend &amp; Efficiency</div>
+  <div class="chart-row">
+    <div class="card">
+      <div class="card-title">Total Ad Spend (AUD)</div>
+      <div class="card-sub">Group-level spend across all channels · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_spend"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Marketing ROI</div>
+      <div class="card-sub">(Revenue − Spend) / Spend · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_roi"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <div class="card">
+      <div class="card-title">Post-Marketing Contribution Margin (PMCM)</div>
+      <div class="card-sub">Revenue net of marketing spend · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_pmcm"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">PMCM as % of Revenue</div>
+      <div class="card-sub">Marketing efficiency ratio · May 25 – May 26</div>
+      <div class="chart-wrap"><canvas id="m_pmcm_pct"></canvas></div>
+    </div>
+  </div>
+
+</div>
+
 <script>
   // ──────────────── Tab navigation ────────────────
   function showTab(id) {
@@ -575,6 +667,7 @@
     event.target.classList.add('active');
     if (id === 'entity' && !entityInitialized) { entityInitialized = true; requestAnimationFrame(initEntityCharts); }
     if (id === 'stripe' && !stripeInitialized) { stripeInitialized = true; requestAnimationFrame(initStripeCharts); }
+    if (id === 'marketing' && !marketingInitialized) { marketingInitialized = true; requestAnimationFrame(initMarketingCharts); }
   }
   function showEntity(e) {
     document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
@@ -916,6 +1009,29 @@
     mastercard: [null, 17793, 19006, 22265, 20429],
     discover:   [null,  5194,  6666,  8015,  8210],
   };
+
+  // ── Marketing data (M12: May 25 – May 26) ──
+  // Source: marketing Google Sheet (group-level monthly aggregates)
+  const mkt = {
+    // Total revenue (margin) earned by PLT group in AUD
+    revenue: [1432703, 1139349, 1489525, 1486217, 1278765, 1385125, 1418390, 1167729, 1818544, 2027490, 2093313, 1787699, 1657550],
+    // Revenue from repeat bookings
+    rev_repeat: [437303, 348060, 485185, 507239, 439025, 493104, 511885, 449269, 632437, 678505, 708979, 605936, 566510],
+    // Revenue from new bookings (total - repeat)
+    rev_new: [995400, 791289, 1004340, 978978, 839740, 892021, 906505, 718460, 1186107, 1348985, 1384334, 1181763, 1091040],
+    // % of bookings that are repeat
+    repeat_pct: [30.52, 30.55, 32.57, 34.13, 34.33, 35.60, 36.09, 38.47, 34.78, 33.47, 33.87, 33.89, 34.18],
+    // Total group ad spend (AUD)
+    ad_spend: [516667, 430586, 621045, 670003, 398334, 454687, 353405, 289361, 481878, 468905, 486171, 372626, 403032],
+    // ROI = (Revenue − Spend) / Spend × 100
+    roi: [177.30, 164.60, 139.84, 121.82, 221.03, 204.63, 301.35, 303.55, 277.39, 332.39, 330.57, 379.76, 311.27],
+    // PMCM = Revenue − Ad Spend
+    pmcm: [916036, 708763, 868480, 816214, 880431, 930438, 1064985, 878368, 1336666, 1558585, 1607142, 1415073, 1254518],
+  };
+  // MoM % change (null for first month)
+  mkt.revenue_mom = mkt.revenue.map((v, i) => i === 0 ? null : +((v / mkt.revenue[i-1] - 1) * 100).toFixed(1));
+  // PMCM as % of Revenue
+  mkt.pmcm_pct = mkt.revenue.map((v, i) => v ? +((mkt.pmcm[i] / v * 100).toFixed(1)) : null);
 
   // Note: o_ttv_total, o_ttv_entity, and fees charts are initialized in initStripeCharts()
 
@@ -1311,6 +1427,67 @@
       data: fees.total.map((f, i) => f == null ? null : +((f / ttv.total[i]) * 100).toFixed(2)),
       borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
     }], v => (+v).toFixed(2) + '%');
+  }
+
+  let marketingInitialized = false;
+  function initMarketingCharts() {
+    marketingInitialized = true;
+
+    const fmtM = v => v == null ? '' : '$' + (v/1e6).toFixed(2) + 'M';
+    const fmtK2 = v => v == null ? '' : '$' + (v/1000).toFixed(0) + 'K';
+
+    // Revenue total
+    mkLine('m_revenue', M12, [{
+      label: 'Group Revenue (AUD)',
+      data: mkt.revenue,
+      borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], fmtM);
+
+    // Revenue MoM %
+    mkBar('m_revenue_mom', M12, [{
+      label: 'MoM % Change',
+      data: mkt.revenue_mom,
+      backgroundColor: mkt.revenue_mom.map(v => v == null ? 'transparent' : v >= 0 ? '#10b981' : '#ef4444'),
+    }], v => v == null ? '' : (+v).toFixed(1) + '%');
+
+    // Repeat %
+    mkLine('m_repeat', M12, [{
+      label: 'Repeat Booking %',
+      data: mkt.repeat_pct,
+      borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], v => (+v).toFixed(1) + '%');
+
+    // Revenue split: new vs repeat stacked
+    mkBar('m_rev_split', M12, [
+      { label: 'New Customers',    data: mkt.rev_new,    backgroundColor: '#6366f1' },
+      { label: 'Repeat Customers', data: mkt.rev_repeat, backgroundColor: '#10b981' },
+    ], fmtK2, true);
+
+    // Ad spend
+    mkBar('m_spend', M12, [{
+      label: 'Total Ad Spend (AUD)', data: mkt.ad_spend, backgroundColor: '#f59e0b'
+    }], fmtK2);
+
+    // ROI
+    mkLine('m_roi', M12, [{
+      label: 'Marketing ROI',
+      data: mkt.roi,
+      borderColor: '#a855f7', backgroundColor: 'rgba(168,85,247,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], v => (+v).toFixed(1) + '%');
+
+    // PMCM absolute
+    mkLine('m_pmcm', M12, [{
+      label: 'PMCM (AUD)',
+      data: mkt.pmcm,
+      borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], fmtK2);
+
+    // PMCM %
+    mkLine('m_pmcm_pct', M12, [{
+      label: 'PMCM %',
+      data: mkt.pmcm_pct,
+      borderColor: '#14b8a6', backgroundColor: 'rgba(20,184,166,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
+    }], v => (+v).toFixed(1) + '%');
   }
 </script>
 </body>
