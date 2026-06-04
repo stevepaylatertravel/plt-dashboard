@@ -573,30 +573,30 @@
   <div class="kpi-grid">
     <div class="kpi-card">
       <div class="kpi-label">Monthly Revenue</div>
-      <div class="kpi-value">$1.66M</div>
+      <div class="kpi-value">$1.93M</div>
       <div class="kpi-sub">May 2026 (AUD)</div>
-      <span class="kpi-pill pill-r">▼ 7.2% vs Apr</span>
-      <div class="kpi-vs">Apr: $1.79M</div>
+      <span class="kpi-pill pill-g">▲ 9.3% vs Apr</span>
+      <div class="kpi-vs">Apr: $1.76M</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Repeat Booking %</div>
-      <div class="kpi-value">34.2%</div>
+      <div class="kpi-value">34.4%</div>
       <div class="kpi-sub">May 2026</div>
-      <span class="kpi-pill pill-g">▲ +0.3pp vs Apr</span>
-      <div class="kpi-vs">Apr: 33.9%</div>
+      <span class="kpi-pill pill-g">▲ +0.4pp vs Apr</span>
+      <div class="kpi-vs">Apr: 34.0%</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Marketing ROI</div>
-      <div class="kpi-value">311.3%</div>
+      <div class="kpi-value">305.6%</div>
       <div class="kpi-sub">May 2026</div>
-      <span class="kpi-pill pill-r">▼ 68.5pp vs Apr</span>
-      <div class="kpi-vs">Apr: 379.8%</div>
+      <span class="kpi-pill pill-r">▼ 67.6pp vs Apr</span>
+      <div class="kpi-vs">Apr: 373.2%</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Ad Spend</div>
-      <div class="kpi-value">$403.0K</div>
+      <div class="kpi-value">$475.2K</div>
       <div class="kpi-sub">May 2026 (AUD)</div>
-      <span class="kpi-pill pill-r">▲ 8.1% vs Apr</span>
+      <span class="kpi-pill pill-r">▲ 27.5% vs Apr</span>
       <div class="kpi-vs">Apr: $372.6K</div>
     </div>
   </div>
@@ -1033,19 +1033,19 @@
   // Source: marketing Google Sheet (group-level monthly aggregates)
   const mkt = {
     // Total revenue (margin) earned by PLT group in AUD
-    revenue: [1432703, 1139349, 1489525, 1486217, 1278765, 1385125, 1418390, 1167729, 1818544, 2027490, 2093313, 1787699, 1657550],
+    revenue: [1428925, 1139318, 1487383, 1481966, 1276626, 1383136, 1414956, 1166352, 1802326, 2013225, 2087836, 1763068, 1927272],
     // Revenue from repeat bookings
-    rev_repeat: [437303, 348060, 485185, 507239, 439025, 493104, 511885, 449269, 632437, 678505, 708979, 605936, 566510],
+    rev_repeat: [436498, 348060, 484515, 506263, 438492, 492585, 510424, 448761, 630890, 671468, 708028, 600183, 662716],
     // Revenue from new bookings (total - repeat)
-    rev_new: [995400, 791289, 1004340, 978978, 839740, 892021, 906505, 718460, 1186107, 1348985, 1384334, 1181763, 1091040],
+    rev_new: [992427, 791258, 1002868, 975703, 838134, 890551, 904532, 717591, 1171436, 1341757, 1379808, 1162885, 1264556],
     // % of bookings that are repeat
-    repeat_pct: [30.52, 30.55, 32.57, 34.13, 34.33, 35.60, 36.09, 38.47, 34.78, 33.47, 33.87, 33.89, 34.18],
+    repeat_pct: [30.55, 30.55, 32.58, 34.16, 34.35, 35.61, 36.07, 38.48, 35.00, 33.35, 33.91, 34.04, 34.39],
     // Total group ad spend (AUD)
-    ad_spend: [516667, 430586, 621045, 670003, 398334, 454687, 353405, 289361, 481878, 468905, 486171, 372626, 403032],
+    ad_spend: [516667, 430586, 621045, 670003, 398334, 454687, 353405, 289361, 481878, 468905, 486171, 372626, 475201],
     // ROI = (Revenue − Spend) / Spend × 100
-    roi: [177.30, 164.60, 139.84, 121.82, 221.03, 204.63, 301.35, 303.55, 277.39, 332.39, 330.57, 379.76, 311.27],
+    roi: [176.57, 164.60, 139.50, 121.19, 220.49, 204.20, 300.38, 303.08, 274.02, 329.35, 329.44, 373.15, 305.57],
     // PMCM = Revenue − Ad Spend
-    pmcm: [916036, 708763, 868480, 816214, 880431, 930438, 1064985, 878368, 1336666, 1558585, 1607142, 1415073, 1254518],
+    pmcm: [912258, 708732, 866338, 811963, 878292, 928449, 1061551, 876991, 1320448, 1544320, 1601665, 1390442, 1452071],
   };
   // MoM % change (null for first month)
   mkt.revenue_mom = mkt.revenue.map((v, i) => i === 0 ? null : +((v / mkt.revenue[i-1] - 1) * 100).toFixed(1));
