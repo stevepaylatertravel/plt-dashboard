@@ -237,7 +237,7 @@
     </div>
     <div class="card">
       <div class="card-title">Gross Margin Amount (local currency)</div>
-      <div class="card-sub">PLT entities summed in native currencies</div>
+      <div class="card-sub">PLT entities · AUD equivalent (RBA monthly FX)</div>
       <div class="chart-wrap"><canvas id="o_margin_amt"></canvas></div>
     </div>
   </div>
@@ -252,7 +252,7 @@
     </div>
     <div class="card">
       <div class="card-title">Total Deposits Collected (local currency)</div>
-      <div class="card-sub">PLT entities · native currency sums</div>
+      <div class="card-sub">PLT entities · AUD equivalent (RBA monthly FX)</div>
       <div class="chart-wrap"><canvas id="o_dep_amt"></canvas></div>
     </div>
   </div>
@@ -390,7 +390,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Avg Margin % by Entity</div>
-      <div class="card-sub">May 25 – May 26 · native currency</div>
+      <div class="card-sub">May 25 – May 26 · AUD equivalent (RBA monthly FX)</div>
       <div class="chart-wrap"><canvas id="e_margin_pct"></canvas></div>
     </div>
     <div class="card">
@@ -740,7 +740,7 @@
     median:  [14.53,15.25,14.16,15.25,15.25,16.67,17.35,17.35,17.36,18.98,18.98,18.98,15.70],
   };
 
-  // Margin amount by entity (13M, native currency)
+  // Margin amount by entity (13M, native currency — converted to AUD in mgAmtAUD)
   const mgAmt = {
     aud: [770247,621211,968914,871433,662126,627031,663493,461229,809403,913193,710120,612788,714399],
     usd: [689607,502759,512956,597825,506919,593596,590394,527506,923135,1060026,1184809,962841,961794],
@@ -775,7 +775,7 @@
     mg_amt_nonref: [91582,64478,80452,78444,62304,68832,66164,50854,102194,120244,122238,100782,null],
   };
 
-  // Deposit amount (13M, native currency)
+  // Deposit amount (13M, native currency — converted to AUD in depAmtAUD)
   const depAmt = {
     aud: [530885,554412,866758,774175,681169,712213,651971,418038,737246,953040,754430,602865,647492],
     usd: [657032,570927,566510,595451,610234,690419,674174,572634,981251,1162137,1259003,1009548,1051999],
@@ -876,6 +876,25 @@
     mom_usd: [null,+0.84,+0.75,-0.81,+1.57,-0.73,-0.58,+2.00,+2.12,+4.08,-0.44,+0.94,+1.42],
   };
 
+  // ──────────────── FX-converted AUD amounts ────────────────
+  // Convert native-currency arrays to AUD using monthly RBA average rates
+  const toAUD = (arr, rates) => arr.map((v, i) => v == null ? null : Math.round(v / rates[i]));
+  const mgAmtAUD = {
+    aud: mgAmt.aud,
+    usd: toAUD(mgAmt.usd, fx.audusd),
+    gbp: toAUD(mgAmt.gbp, fx.audgbp),
+    cad: toAUD(mgAmt.cad, fx.audcad),
+  };
+  const depAmtAUD = {
+    aud: depAmt.aud,
+    usd: toAUD(depAmt.usd, fx.audusd),
+    gbp: toAUD(depAmt.gbp, fx.audgbp),
+    cad: toAUD(depAmt.cad, fx.audcad),
+  };
+  // SP US margin + deposit converted to AUD (SP AU already in AUD)
+  const spUsMgAmtAUD  = toAUD(sp_us.mg_amt,  fx.audusd);
+  const spUsDepAmtAUD = toAUD(sp_us.dep_amt, fx.audusd);
+
   // ──────────────── Overall Charts ────────────────
 
   // FX: AUD/USD
@@ -922,10 +941,10 @@
 
   // Margin amount
   mkBar('o_margin_amt', M12, [
-    { label: 'PLT_AUD (AUD)', data: mgAmt.aud, backgroundColor: '#6366f1' },
-    { label: 'PLT_USD (USD)', data: mgAmt.usd, backgroundColor: '#3b82f6' },
-    { label: 'PLT_GBP (GBP)', data: mgAmt.gbp, backgroundColor: '#a855f7' },
-    { label: 'PLT_CAD (CAD)', data: mgAmt.cad, backgroundColor: '#f59e0b' },
+    { label: 'PLT_AUD', data: mgAmtAUD.aud, backgroundColor: '#6366f1' },
+    { label: 'PLT_USD', data: mgAmtAUD.usd, backgroundColor: '#3b82f6' },
+    { label: 'PLT_GBP', data: mgAmtAUD.gbp, backgroundColor: '#a855f7' },
+    { label: 'PLT_CAD', data: mgAmtAUD.cad, backgroundColor: '#f59e0b' },
   ], v => '$' + (v/1000).toFixed(0) + 'K', true);
 
   // Deposit rate
@@ -937,10 +956,10 @@
 
   // Deposit amount
   mkBar('o_dep_amt', M12, [
-    { label: 'PLT_AUD (AUD)', data: depAmt.aud, backgroundColor: '#6366f1' },
-    { label: 'PLT_USD (USD)', data: depAmt.usd, backgroundColor: '#3b82f6' },
-    { label: 'PLT_GBP (GBP)', data: depAmt.gbp, backgroundColor: '#a855f7' },
-    { label: 'PLT_CAD (CAD)', data: depAmt.cad, backgroundColor: '#f59e0b' },
+    { label: 'PLT_AUD', data: depAmtAUD.aud, backgroundColor: '#6366f1' },
+    { label: 'PLT_USD', data: depAmtAUD.usd, backgroundColor: '#3b82f6' },
+    { label: 'PLT_GBP', data: depAmtAUD.gbp, backgroundColor: '#a855f7' },
+    { label: 'PLT_CAD', data: depAmtAUD.cad, backgroundColor: '#f59e0b' },
   ], v => '$' + (v/1000).toFixed(0) + 'K', true);
 
   // Tenor
@@ -1232,12 +1251,12 @@
 
     // Margin amount by entity
     mkEntityBar('e_margin_amt', M12, [
-      { label: 'PLT_AUD', data: mgAmt.aud, backgroundColor: '#6366f1' },
-      { label: 'PLT_USD', data: mgAmt.usd, backgroundColor: '#3b82f6' },
-      { label: 'PLT_GBP', data: mgAmt.gbp, backgroundColor: '#a855f7' },
-      { label: 'PLT_CAD', data: mgAmt.cad, backgroundColor: '#f59e0b' },
+      { label: 'PLT_AUD', data: mgAmtAUD.aud, backgroundColor: '#6366f1' },
+      { label: 'PLT_USD', data: mgAmtAUD.usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT_GBP', data: mgAmtAUD.gbp, backgroundColor: '#a855f7' },
+      { label: 'PLT_CAD', data: mgAmtAUD.cad, backgroundColor: '#f59e0b' },
       { label: 'SP AU',   data: sp_au.mg_amt, backgroundColor: '#10b981' },
-      { label: 'SP US',   data: sp_us.mg_amt, backgroundColor: '#14b8a6' },
+      { label: 'SP US',   data: spUsMgAmtAUD, backgroundColor: '#14b8a6' },
     ], v => v == null ? '' : '$' + (v/1000).toFixed(0) + 'K', true);
 
     // Deposit rate by entity
@@ -1252,12 +1271,12 @@
 
     // Deposit amount by entity
     mkEntityBar('e_dep_amt', M12, [
-      { label: 'PLT_AUD', data: depAmt.aud, backgroundColor: '#6366f1' },
-      { label: 'PLT_USD', data: depAmt.usd, backgroundColor: '#3b82f6' },
-      { label: 'PLT_GBP', data: depAmt.gbp, backgroundColor: '#a855f7' },
-      { label: 'PLT_CAD', data: depAmt.cad, backgroundColor: '#f59e0b' },
+      { label: 'PLT_AUD', data: depAmtAUD.aud, backgroundColor: '#6366f1' },
+      { label: 'PLT_USD', data: depAmtAUD.usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT_GBP', data: depAmtAUD.gbp, backgroundColor: '#a855f7' },
+      { label: 'PLT_CAD', data: depAmtAUD.cad, backgroundColor: '#f59e0b' },
       { label: 'SP AU',   data: sp_au.dep_amt, backgroundColor: '#10b981' },
-      { label: 'SP US',   data: sp_us.dep_amt, backgroundColor: '#14b8a6' },
+      { label: 'SP US',   data: spUsDepAmtAUD, backgroundColor: '#14b8a6' },
     ], v => v == null ? '' : '$' + (v/1000).toFixed(0) + 'K', true);
 
     // Refundable deposit rate by entity
