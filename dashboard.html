@@ -116,6 +116,7 @@
   <button class="nav-btn" onclick="showTab('entity')">By Entity</button>
   <button class="nav-btn" onclick="showTab('stripe')">Stripe Data</button>
   <button class="nav-btn" onclick="showTab('marketing')">Marketing</button>
+  <button class="nav-btn" onclick="showTab('weekly')">Weekly</button>
 </div>
 
 <!-- ═══════════════════ OVERALL ═══════════════════ -->
@@ -718,6 +719,73 @@
 
 </div>
 
+<div id="weekly" class="section">
+
+  <div class="kpi-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Bookings</div>
+      <div class="kpi-value">1,275</div>
+      <div class="kpi-sub" style="color:#ef4444">▼3.0% WoW · w/e 31 May</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">USD Booking Share</div>
+      <div class="kpi-value">61.8%</div>
+      <div class="kpi-sub" style="color:#10b981">▲+0.4pp WoW</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">PLT AUD Gross Margin</div>
+      <div class="kpi-value">16.3%</div>
+      <div class="kpi-sub" style="color:#ef4444">▼0.1pp WoW · trending ▲ since Mar</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">PLT AUD Tenor</div>
+      <div class="kpi-value">12.5 wks</div>
+      <div class="kpi-sub" style="color:#8892a4">stable WoW · PLT USD 10.2 wks</div>
+    </div>
+  </div>
+
+  <div class="section-label">Weekly Bookings</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Bookings by Entity</div>
+      <div class="card-sub">2 Mar – 31 May 2026 · 13 weeks · PLT entities incl. CAD</div>
+      <div class="chart-wrap"><canvas id="w_bookings"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Currency Mix %</div>
+      <div class="card-sub">Share of total bookings per week</div>
+      <div class="chart-wrap"><canvas id="w_currency_mix"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Contract Quality</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Gross Margin % by Entity</div>
+      <div class="card-sub">PLT AUD trending 14.6% → 16.3% · USD stable ~19.2%</div>
+      <div class="chart-wrap"><canvas id="w_margin"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Deposit Rate % by Entity</div>
+      <div class="card-sub">USD consistently ~21% · AUD variable 13–17%</div>
+      <div class="chart-wrap"><canvas id="w_deposit"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Contract Tenor by Entity</div>
+      <div class="card-sub">Average weeks · PLT USD compressing 11 → 9 wks over 13 weeks</div>
+      <div class="chart-wrap"><canvas id="w_tenor"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Deposit : Instalment Ratio</div>
+      <div class="card-sub">Deposit size relative to average instalment payment</div>
+      <div class="chart-wrap"><canvas id="w_di"></canvas></div>
+    </div>
+  </div>
+
+</div>
+
 <script>
   // ──────────────── Tab navigation ────────────────
   function showTab(id) {
@@ -728,6 +796,7 @@
     if (id === 'entity' && !entityInitialized) { entityInitialized = true; requestAnimationFrame(initEntityCharts); }
     if (id === 'stripe' && !stripeInitialized) { stripeInitialized = true; requestAnimationFrame(initStripeCharts); }
     if (id === 'marketing' && !marketingInitialized) { marketingInitialized = true; requestAnimationFrame(initMarketingCharts); }
+    if (id === 'weekly' && !weeklyInitialized) { weeklyInitialized = true; requestAnimationFrame(initWeeklyCharts); }
   }
   function showEntity(e) {
     document.querySelectorAll('.etab').forEach(b => b.classList.remove('active'));
@@ -777,6 +846,35 @@
   const M12 = ['May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'];
   const M4  = ['Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'];
   const M_ARR = ['Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'];
+  const W13 = ['2 Mar','9 Mar','16 Mar','23 Mar','30 Mar','6 Apr','13 Apr','20 Apr','27 Apr','4 May','11 May','18 May','25 May'];
+
+  // Weekly data — from db_booking + db_payment_schedule (system of record, incl. CAD)
+  const wk = {
+    plt_aud:   [513,535,531,478,390,376,421,469,498,478,485,446,434],
+    plt_usd:   [1104,1221,1010,880,822,822,885,831,934,879,892,807,788],
+    plt_gbp:   [19,19,13,14,24,15,20,31,26,23,9,16,20],
+    plt_cad:   [53,41,39,39,32,34,29,44,34,32,29,45,33],
+    mix_aud:   [30.4,29.5,33.3,33.9,30.8,30.2,31.1,34.1,33.4,33.9,34.3,33.9,34.0],
+    mix_usd:   [65.4,67.2,63.4,62.4,64.8,65.9,65.3,60.4,62.6,62.3,63.0,61.4,61.8],
+    mix_cad:   [3.1,2.3,2.4,2.8,2.5,2.7,2.1,3.2,2.3,2.3,2.0,3.4,2.6],
+    mix_gbp:   [1.1,1.0,0.8,1.0,1.9,1.2,1.5,2.3,1.7,1.6,0.6,1.2,1.6],
+    mg_aud:    [14.64,14.65,14.67,14.67,14.65,14.62,15.17,15.56,15.43,15.94,16.34,16.33,16.27],
+    mg_usd:    [19.16,19.17,19.18,19.16,19.17,19.16,19.15,19.15,19.16,19.17,19.15,19.14,19.15],
+    mg_gbp:    [14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53],
+    mg_cad:    [15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25,15.25],
+    dep_aud:   [15.44,16.16,16.81,16.02,16.86,16.17,16.04,14.50,15.67,13.57,15.73,14.77,14.84],
+    dep_usd:   [21.36,20.95,21.27,20.91,20.78,20.84,20.79,21.21,21.72,21.98,21.01,21.43,21.63],
+    dep_gbp:   [13.68,16.25,15.27,17.13,17.07,15.67,15.90,16.25,14.40,14.78,14.44,11.55,13.94],
+    dep_cad:   [13.10,17.19,26.14,17.67,20.92,17.64,20.34,20.23,19.55,21.52,19.29,19.98,18.76],
+    tenor_aud: [14.24,14.84,13.05,11.83,11.11,11.65,11.77,12.69,12.29,12.33,11.51,12.48,12.46],
+    tenor_usd: [11.30,10.79,10.90,10.35,10.21,10.21,10.03,10.16,9.47,9.03,9.34,8.77,10.24],
+    tenor_gbp: [12.37,11.21,10.62,15.57,15.25,14.93,16.50,15.35,16.54,11.96,10.78,15.00,18.10],
+    tenor_cad: [13.06,12.39,12.13,16.41,11.53,10.50,10.90,9.48,9.56,11.50,14.17,14.31,11.91],
+    di_aud:    [1.89,2.11,2.08,1.76,1.70,1.77,1.69,1.69,1.71,1.48,1.53,1.63,1.66],
+    di_usd:    [2.18,2.09,2.09,1.90,1.84,1.98,1.91,1.91,1.80,1.78,1.77,1.65,1.85],
+    di_gbp:    [1.54,1.90,1.28,2.18,2.51,2.17,2.01,2.23,2.32,1.39,1.31,1.59,2.34],
+    di_cad:    [1.21,1.55,2.44,2.18,1.66,1.27,1.61,1.54,1.35,1.91,2.40,2.39,1.65],
+  };
 
   // Bookings by entity (11M, Jul 25 – May 26)
   const bk = {
@@ -1506,6 +1604,56 @@
       data: fees.total.map((f, i) => f == null ? null : +((f / ttv.total[i]) * 100).toFixed(2)),
       borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', borderWidth: 2.5, pointRadius: 4, fill: true, tension: 0.3, spanGaps: true,
     }], v => (+v).toFixed(2) + '%');
+  }
+
+  let weeklyInitialized = false;
+  function initWeeklyCharts() {
+    weeklyInitialized = true;
+    const fmtPct = v => v == null ? '' : (+v).toFixed(1) + '%';
+    const fmtWks = v => v == null ? '' : (+v).toFixed(1) + ' wks';
+    const fmtDI  = v => v == null ? '' : (+v).toFixed(2) + 'x';
+
+    mkBar('w_bookings', W13, [
+      { label: 'PLT AUD', data: wk.plt_aud, backgroundColor: '#6366f1' },
+      { label: 'PLT USD', data: wk.plt_usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT GBP', data: wk.plt_gbp, backgroundColor: '#10b981' },
+      { label: 'PLT CAD', data: wk.plt_cad, backgroundColor: '#f59e0b' },
+    ], fmtN, true);
+
+    mkBar('w_currency_mix', W13, [
+      { label: 'AUD', data: wk.mix_aud, backgroundColor: '#6366f1' },
+      { label: 'USD', data: wk.mix_usd, backgroundColor: '#3b82f6' },
+      { label: 'CAD', data: wk.mix_cad, backgroundColor: '#f59e0b' },
+      { label: 'GBP', data: wk.mix_gbp, backgroundColor: '#10b981' },
+    ], fmtPct, true);
+
+    mkLine('w_margin', W13, [
+      { label: 'PLT AUD', data: wk.mg_aud, borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: wk.mg_usd, borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT GBP', data: wk.mg_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT CAD', data: wk.mg_cad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], fmtPct);
+
+    mkLine('w_deposit', W13, [
+      { label: 'PLT AUD', data: wk.dep_aud, borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: wk.dep_usd, borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT GBP', data: wk.dep_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT CAD', data: wk.dep_cad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], fmtPct);
+
+    mkLine('w_tenor', W13, [
+      { label: 'PLT AUD', data: wk.tenor_aud, borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: wk.tenor_usd, borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT GBP', data: wk.tenor_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT CAD', data: wk.tenor_cad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], fmtWks);
+
+    mkLine('w_di', W13, [
+      { label: 'PLT AUD', data: wk.di_aud, borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: wk.di_usd, borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT GBP', data: wk.di_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT CAD', data: wk.di_cad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], fmtDI);
   }
 
   let marketingInitialized = false;
