@@ -784,6 +784,32 @@
     </div>
   </div>
 
+  <div class="section-label">Weekly Stripe</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Weekly TTV by Entity (AUD)</div>
+      <div class="card-sub">2 Mar – 31 May 2026 · 13 weeks · Jun data not yet in source tables</div>
+      <div class="chart-wrap"><canvas id="ws_ttv"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Refund Rate % by Entity</div>
+      <div class="card-sub">Spikes: PLT AUD 20% w/e 12 Apr · PLT USD 22% w/e 10 May · SP_US elevated Mar–Apr</div>
+      <div class="chart-wrap"><canvas id="ws_refund"></canvas></div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Total Weekly Fees (AUD)</div>
+      <div class="card-sub">Stacked by entity group · PLT USD dominates at ~$27–31K/week</div>
+      <div class="chart-wrap"><canvas id="ws_fees"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Blended Fee Rate % by Entity</div>
+      <div class="card-sub">SP_US highest (~2.1%) · PLT AUD lowest (~0.9%) · PLT USD ~1.8%</div>
+      <div class="chart-wrap"><canvas id="ws_fee_rate"></canvas></div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -1606,6 +1632,28 @@
     }], v => (+v).toFixed(2) + '%');
   }
 
+  // Weekly Stripe data — 13 weeks Mar 2 – May 31 2026 (Jun not yet in source tables)
+  const ws = {
+    ttv_aud:  [1000792,1084322,971216,946453,903387,872404,921595,956054,937038,961495,1012325,1017600,1005456],
+    ttv_usd:  [1465680,1694437,1538634,1487735,1426081,1397647,1467787,1476295,1596584,1505332,1584198,1572015,1624217],
+    ttv_gbp:  [48004,62801,37264,49871,42454,35115,39200,51611,60681,42093,39283,42529,67257],
+    ttv_sp_au:[247720,275896,240916,219587,214244,206039,197550,207217,201752,206544,213284,218692,218973],
+    ttv_sp_us:[102203,82387,88496,66538,63071,64385,68235,63854,81852,79273,66419,65763,55730],
+    ref_aud:  [4.87,3.90,11.25,13.44,9.28,20.09,10.53,15.47,13.82,13.52,8.95,11.52,9.49],
+    ref_usd:  [5.99,4.80,5.46,8.50,7.10,6.15,11.38,8.65,7.22,21.73,6.18,5.24,4.04],
+    ref_gbp:  [3.64,1.38,1.14,1.17,9.17,0.00,7.43,6.75,21.90,16.47,31.27,22.65,10.58],
+    ref_sp_au:[1.80,2.27,3.88,2.49,5.47,3.27,0.38,2.63,10.75,0.59,5.39,1.41,2.72],
+    ref_sp_us:[1.87,0.56,8.83,35.07,3.80,27.11,27.87,2.78,12.98,11.35,4.90,15.93,1.52],
+    fee_aud:  [8838,9582,8710,8065,8709,8326,8847,9971,9290,9747,9904,10052,9962],
+    fee_usd:  [26771,30589,28248,25988,28015,25920,27480,26534,30024,28089,28659,28980,28786],
+    fee_gbp:  [498,630,408,468,459,378,390,505,552,419,310,465,528],
+    fee_sp:   [4875,4853,4391,3452,4331,4240,4283,4304,4568,4500,4073,4131,4311],
+    rate_aud: [0.88,0.88,0.90,0.85,0.96,0.95,0.96,1.04,0.99,1.01,0.98,0.99,0.99],
+    rate_usd: [1.83,1.81,1.84,1.75,1.96,1.85,1.87,1.80,1.88,1.87,1.81,1.84,1.77],
+    rate_sp_au:[1.10,1.10,1.05,1.06,1.31,1.32,1.42,1.42,1.44,1.31,1.22,1.23,1.41],
+    rate_sp_us:[2.11,2.21,2.10,1.69,2.40,2.35,2.17,2.14,2.02,2.28,2.22,2.18,2.18],
+  };
+
   let weeklyInitialized = false;
   function initWeeklyCharts() {
     weeklyInitialized = true;
@@ -1654,6 +1702,38 @@
       { label: 'PLT GBP', data: wk.di_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
       { label: 'PLT CAD', data: wk.di_cad, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
     ], fmtDI);
+
+    // Stripe charts — 13 weeks only (Mar 2 – May 31)
+    const W13_S = W13.slice(0, 13);
+    mkBar('ws_ttv', W13_S, [
+      { label: 'PLT AUD', data: ws.ttv_aud,   backgroundColor: '#6366f1' },
+      { label: 'PLT USD', data: ws.ttv_usd,   backgroundColor: '#3b82f6' },
+      { label: 'PLT GBP', data: ws.ttv_gbp,   backgroundColor: '#10b981' },
+      { label: 'SP AU',   data: ws.ttv_sp_au, backgroundColor: '#f59e0b' },
+      { label: 'SP US',   data: ws.ttv_sp_us, backgroundColor: '#a855f7' },
+    ], fmtK, true);
+
+    mkLine('ws_refund', W13_S, [
+      { label: 'PLT AUD', data: ws.ref_aud,   borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: ws.ref_usd,   borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT GBP', data: ws.ref_gbp,   borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'SP AU',   data: ws.ref_sp_au, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'SP US',   data: ws.ref_sp_us, borderColor: '#a855f7', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], v => (+v).toFixed(1) + '%');
+
+    mkBar('ws_fees', W13_S, [
+      { label: 'PLT AUD', data: ws.fee_aud, backgroundColor: '#6366f1' },
+      { label: 'PLT USD', data: ws.fee_usd, backgroundColor: '#3b82f6' },
+      { label: 'PLT GBP', data: ws.fee_gbp, backgroundColor: '#10b981' },
+      { label: 'SP',      data: ws.fee_sp,  backgroundColor: '#f59e0b' },
+    ], fmtK, true);
+
+    mkLine('ws_fee_rate', W13_S, [
+      { label: 'PLT AUD', data: ws.rate_aud,   borderColor: '#6366f1', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'PLT USD', data: ws.rate_usd,   borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'SP AU',   data: ws.rate_sp_au, borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+      { label: 'SP US',   data: ws.rate_sp_us, borderColor: '#a855f7', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3 },
+    ], v => (+v).toFixed(2) + '%');
   }
 
   let marketingInitialized = false;
