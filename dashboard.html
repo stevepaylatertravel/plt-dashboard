@@ -74,6 +74,20 @@
       { label: 'Est. Loss (AUD)', data: pc.loss, backgroundColor: '#f59e0b' },
     ], fmtK);
 
+    // Event view — pool defaults joined to Pipedrive lost_time (min per contract, any lost reason).
+    // Coverage 10,209/11,484 (89%); remainder still open in Pipedrive. Early 2024 left-censored (pool starts Jan 24).
+    const PC_EVT_M = ['Feb 24','Mar 24','Apr 24','May 24','Jun 24','Jul 24','Aug 24','Sep 24','Oct 24','Nov 24','Dec 24','Jan 25','Feb 25','Mar 25','Apr 25','May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26','Jun 26'];
+    const lostEvt = [19,50,94,119,115,315,223,206,181,280,353,355,346,338,310,350,252,290,219,263,323,1034,746,281,702,363,669,1033,308];
+    const lossEvt = [6619,20743,74506,83899,98561,356241,267412,159654,120811,289382,366752,392450,319943,328495,230646,270610,114952,173362,137125,176028,248568,1163708,689675,233803,662725,215978,575715,895511,230437];
+
+    mkBar('bp_lost_evt', PC_EVT_M, [
+      { label: 'Bookings Lost', data: lostEvt, backgroundColor: '#dc2626' },
+    ], fmtN);
+
+    mkBar('bp_loss_evt', PC_EVT_M, [
+      { label: 'Est. Loss (AUD)', data: lossEvt, backgroundColor: '#ea580c' },
+    ], fmtK);
+
     mkBar('bp_cancel', PC_M, [
       { label: 'Cancelled Bookings', data: pc.cancelled, backgroundColor: '#a855f7' },
     ], fmtN);
@@ -934,6 +948,20 @@
       <div class="card-title">Estimated Loss by Cohort (AUD)</div>
       <div class="card-sub">Loss estimate on defaulted bookings · $10.0M cumulative</div>
       <div class="chart-wrap"><canvas id="bp_loss_amt"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Bookings Lost — Event View (when the default occurred)</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Bookings Lost by Month — As Occurred</div>
+      <div class="card-sub">Pool defaults dated by Pipedrive lost date · spikes = batch closures by collections</div>
+      <div class="chart-wrap"><canvas id="bp_lost_evt"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Estimated Loss by Month — As Occurred (AUD)</div>
+      <div class="card-sub">~89% of pool defaults have a lost date · recent months understated (deals pending closure)</div>
+      <div class="chart-wrap"><canvas id="bp_loss_evt"></canvas></div>
     </div>
   </div>
 
