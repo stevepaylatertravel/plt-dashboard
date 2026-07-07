@@ -170,6 +170,13 @@
 
     /* Note */
     .note { font-size: 11px; color: var(--muted); background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.18); border-radius: 8px; padding: 9px 13px; margin-bottom: 24px; line-height: 1.6; }
+    .bp-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .bp-table th { text-align: right; padding: 8px 12px; color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 1px solid #2a2d3a; }
+    .bp-table th:first-child, .bp-table td:first-child { text-align: left; }
+    .bp-table td { text-align: right; padding: 7px 12px; border-bottom: 1px solid rgba(42,45,58,0.5); font-variant-numeric: tabular-nums; }
+    .bp-table tr.total td { border-top: 2px solid #2a2d3a; border-bottom: none; font-weight: 700; }
+    .bp-table .neg { color: #10b981; }
+    .bp-table .pos { color: #ef4444; }
     .warn { background: rgba(245,158,11,0.07); border-color: rgba(245,158,11,0.2); }
 
     /* Legend dots */
@@ -974,6 +981,38 @@
       <div class="card-title">Estimated Loss by Month — As Occurred (AUD)</div>
       <div class="card-sub">~89% of pool defaults have a lost date · recent months understated (deals pending closure)</div>
       <div class="chart-wrap"><canvas id="bp_loss_evt"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Net Loss after Supplier Recoveries</div>
+  <div class="card" style="margin-bottom:24px;">
+    <div class="card-title">Gross Loss vs Supplier Refunds vs Customer Refunds (AUD)</div>
+    <div class="card-sub">Monthly, as occurred · supplier invoice data available from Jan 2026 · refunds matched to pool bookings via consolidator invoices (~99% match)</div>
+    <div style="overflow-x:auto; margin-top:12px;">
+      <table class="bp-table">
+        <thead>
+          <tr>
+            <th>Month</th>
+            <th>Gross Loss<br>(defaults, as occurred)</th>
+            <th>Supplier Refunds<br>(defaulted bookings)</th>
+            <th>Net Loss<br>(defaults)</th>
+            <th>Supplier Refunds<br>(cancelled bookings)</th>
+            <th>Customer Refunds Paid<br>(all bookings, Stripe)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan 26</td><td class="pos">$233,803</td><td class="neg">−$322,367</td><td class="neg">−$88,564</td><td class="neg">−$371,810</td><td>$720,609</td></tr>
+          <tr><td>Feb 26</td><td class="pos">$662,725</td><td class="neg">−$156,086</td><td class="pos">$506,639</td><td class="neg">−$228,680</td><td>$732,962</td></tr>
+          <tr><td>Mar 26</td><td class="pos">$215,978</td><td class="neg">−$213,773</td><td class="pos">$2,205</td><td class="neg">−$611,680</td><td>$829,271</td></tr>
+          <tr><td>Apr 26</td><td class="pos">$575,715</td><td class="neg">−$147,769</td><td class="pos">$427,946</td><td class="neg">−$957,022</td><td>$1,167,176</td></tr>
+          <tr><td>May 26</td><td class="pos">$895,511</td><td class="neg">−$189,397</td><td class="pos">$706,114</td><td class="neg">−$712,861</td><td>$1,231,807</td></tr>
+          <tr><td>Jun 26</td><td class="pos">$230,437</td><td class="neg">−$224,260</td><td class="pos">$6,177</td><td class="neg">−$690,683</td><td>$763,793</td></tr>
+          <tr class="total"><td>H1 2026</td><td class="pos">$2,814,169</td><td class="neg">−$1,253,652</td><td class="pos">$1,560,517</td><td class="neg">−$3,572,736</td><td>$5,445,618</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="kpi-vs" style="margin-top:10px; line-height:1.6;">
+      Gross loss = pool defaults dated by Pipedrive lost month (batch closures cause spikes). Supplier refunds = consolidator invoice REFUND lines received that month, matched to pool bookings by outcome — recoveries in a month often relate to bookings lost in earlier months (why Jan nets negative). Customer refunds are whole-book Stripe refunds (incl. SlicePay), not restricted to defaults/cancellations. Pre-2026 supplier invoice data is not loaded in BigQuery.
     </div>
   </div>
 
