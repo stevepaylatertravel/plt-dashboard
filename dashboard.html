@@ -984,6 +984,34 @@
     </div>
   </div>
 
+  <div class="section-label">Cancellations</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Cancellations by Cohort</div>
+      <div class="card-sub">Bookings created each month that were cancelled</div>
+      <div class="chart-wrap"><canvas id="bp_cancel"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Default &amp; Cancellation Rate % by Cohort</div>
+      <div class="card-sub">% of cohort · recent cohorts not yet settled</div>
+      <div class="chart-wrap"><canvas id="bp_rates"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Cancellations — Event View (when the cancellation occurred)</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Cancellations by Month — As Occurred</div>
+      <div class="card-sub">Pool cancellations dated by Pipedrive cancel date · 99.9% coverage</div>
+      <div class="chart-wrap"><canvas id="bp_cancel_evt"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Lost vs Cancelled by Month — As Occurred</div>
+      <div class="card-sub">Defaults (Pipedrive lost date) vs cancellations (cancel date), pool bookings only</div>
+      <div class="chart-wrap"><canvas id="bp_lost_vs_cancel"></canvas></div>
+    </div>
+  </div>
+
   <div class="section-label">Net Loss after Supplier Recoveries</div>
   <div class="card" style="margin-bottom:24px;">
     <div class="card-title">Gross Loss vs Supplier Refunds vs Customer Refunds (AUD)</div>
@@ -1017,33 +1045,6 @@
     </div>
   </div>
 
-  <div class="section-label">Cancellations</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">Cancellations by Cohort</div>
-      <div class="card-sub">Bookings created each month that were cancelled</div>
-      <div class="chart-wrap"><canvas id="bp_cancel"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Default &amp; Cancellation Rate % by Cohort</div>
-      <div class="card-sub">% of cohort · recent cohorts not yet settled</div>
-      <div class="chart-wrap"><canvas id="bp_rates"></canvas></div>
-    </div>
-  </div>
-
-  <div class="section-label">Cancellations — Event View (when the cancellation occurred)</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">Cancellations by Month — As Occurred</div>
-      <div class="card-sub">Pool cancellations dated by Pipedrive cancel date · 99.9% coverage</div>
-      <div class="chart-wrap"><canvas id="bp_cancel_evt"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="card-title">Lost vs Cancelled by Month — As Occurred</div>
-      <div class="card-sub">Defaults (Pipedrive lost date) vs cancellations (cancel date), pool bookings only</div>
-      <div class="chart-wrap"><canvas id="bp_lost_vs_cancel"></canvas></div>
-    </div>
-  </div>
 
 </div>
 
