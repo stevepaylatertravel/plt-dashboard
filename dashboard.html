@@ -998,21 +998,22 @@
             <th>Net Loss<br>(defaults)</th>
             <th>Supplier Refunds<br>(cancelled bookings)</th>
             <th>Customer Refunds Paid<br>(all bookings, Stripe)</th>
+            <th>Total Net</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Jan 26</td><td class="pos">$233,803</td><td class="neg">−$322,367</td><td class="neg">−$88,564</td><td class="neg">−$371,810</td><td>$720,609</td></tr>
-          <tr><td>Feb 26</td><td class="pos">$662,725</td><td class="neg">−$156,086</td><td class="pos">$506,639</td><td class="neg">−$228,680</td><td>$732,962</td></tr>
-          <tr><td>Mar 26</td><td class="pos">$215,978</td><td class="neg">−$213,773</td><td class="pos">$2,205</td><td class="neg">−$611,680</td><td>$829,271</td></tr>
-          <tr><td>Apr 26</td><td class="pos">$575,715</td><td class="neg">−$147,769</td><td class="pos">$427,946</td><td class="neg">−$957,022</td><td>$1,167,176</td></tr>
-          <tr><td>May 26</td><td class="pos">$895,511</td><td class="neg">−$189,397</td><td class="pos">$706,114</td><td class="neg">−$712,861</td><td>$1,231,807</td></tr>
-          <tr><td>Jun 26</td><td class="pos">$230,437</td><td class="neg">−$224,260</td><td class="pos">$6,177</td><td class="neg">−$690,683</td><td>$763,793</td></tr>
-          <tr class="total"><td>H1 2026</td><td class="pos">$2,814,169</td><td class="neg">−$1,253,652</td><td class="pos">$1,560,517</td><td class="neg">−$3,572,736</td><td>$5,445,618</td></tr>
+          <tr><td>Jan 26</td><td class="pos">$233,803</td><td class="neg">−$322,367</td><td class="neg">−$88,564</td><td class="neg">−$371,810</td><td class="pos">$720,609</td><td class="pos">$260,235</td></tr>
+          <tr><td>Feb 26</td><td class="pos">$662,725</td><td class="neg">−$156,086</td><td class="pos">$506,639</td><td class="neg">−$228,680</td><td class="pos">$732,962</td><td class="pos">$1,010,921</td></tr>
+          <tr><td>Mar 26</td><td class="pos">$215,978</td><td class="neg">−$213,773</td><td class="pos">$2,205</td><td class="neg">−$611,680</td><td class="pos">$829,271</td><td class="pos">$219,796</td></tr>
+          <tr><td>Apr 26</td><td class="pos">$575,715</td><td class="neg">−$147,769</td><td class="pos">$427,946</td><td class="neg">−$957,022</td><td class="pos">$1,167,176</td><td class="pos">$638,100</td></tr>
+          <tr><td>May 26</td><td class="pos">$895,511</td><td class="neg">−$189,397</td><td class="pos">$706,114</td><td class="neg">−$712,861</td><td class="pos">$1,231,807</td><td class="pos">$1,225,060</td></tr>
+          <tr><td>Jun 26</td><td class="pos">$230,437</td><td class="neg">−$224,260</td><td class="pos">$6,177</td><td class="neg">−$690,683</td><td class="pos">$763,793</td><td class="pos">$79,287</td></tr>
+          <tr class="total"><td>H1 2026</td><td class="pos">$2,814,169</td><td class="neg">−$1,253,652</td><td class="pos">$1,560,517</td><td class="neg">−$3,572,736</td><td class="pos">$5,445,618</td><td class="pos">$3,433,399</td></tr>
         </tbody>
       </table>
     </div>
     <div class="kpi-vs" style="margin-top:10px; line-height:1.6;">
-      Gross loss = pool defaults dated by Pipedrive lost month (batch closures cause spikes). Supplier refunds = consolidator invoice REFUND lines received that month, matched to pool bookings by outcome — recoveries in a month often relate to bookings lost in earlier months (why Jan nets negative). Customer refunds are whole-book Stripe refunds (incl. SlicePay), not restricted to defaults/cancellations. Pre-2026 supplier invoice data is not loaded in BigQuery.
+      Gross loss = pool defaults dated by Pipedrive lost month (batch closures cause spikes). Supplier refunds = consolidator invoice REFUND lines received that month, matched to pool bookings by outcome — recoveries in a month often relate to bookings lost in earlier months (why Jan nets negative). Customer refunds are whole-book Stripe refunds (incl. SlicePay), not restricted to defaults/cancellations — a cost to PLT. <strong>Total Net = gross loss − supplier refunds (both) + customer refunds paid</strong> — red = net cost to PLT. Pre-2026 supplier invoice data is not loaded in BigQuery.
     </div>
   </div>
 
