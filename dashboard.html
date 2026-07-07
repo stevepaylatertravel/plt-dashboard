@@ -183,7 +183,7 @@
   </div>
 
   <div class="note">
-    ⚠ <strong>Data notes:</strong> Margin &amp; deposit totals are in native booking currencies (AUD, USD, GBP, CAD) — not FX-converted. Stripe TTV &amp; refund data covers Dec 2025 – May 2026 (see Stripe Data tab). Cancellations lag ~4–6 weeks — Feb 26 shown as latest stable (Mar/Apr/May/Jun still settling). Arrears shown by payment plan creation month (cohort view). SP margin data starts Oct 2025 (prior months showed inconsistent recording).
+    ⚠ <strong>Data notes:</strong> Margin &amp; deposit totals are in native booking currencies (AUD, USD, GBP, CAD) — not FX-converted. Stripe TTV &amp; refund data covers Dec 2025 – Jun 2026 (see Stripe Data tab). Cancellations lag ~4–6 weeks — Feb 26 shown as latest stable (Mar/Apr/May/Jun still settling). Arrears shown by payment plan creation month (cohort view). SP margin data starts Oct 2025 (prior months showed inconsistent recording).
   </div>
 
   <!-- FX Rates -->
@@ -191,7 +191,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">AUD/USD Monthly Average</div>
-      <div class="card-sub">May 25 – May 26 · RBA daily rates averaged · 0.644 → 0.709</div>
+      <div class="card-sub">May 25 – Jun 26 · RBA daily rates averaged · 0.644 → 0.703</div>
       <div class="chart-wrap"><canvas id="o_fx_audusd"></canvas></div>
     </div>
     <div class="card">
@@ -233,7 +233,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Gross Margin % (avg)</div>
-      <div class="card-sub">May 25 – May 26 · (sale − cost) ÷ sale, all PLT entities</div>
+      <div class="card-sub">May 25 – Jun 26 · (sale − cost) ÷ sale, all PLT entities</div>
       <div class="chart-wrap"><canvas id="o_margin_pct"></canvas></div>
     </div>
     <div class="card">
@@ -282,12 +282,12 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Booking Mix — Refundable vs Non-Refundable</div>
-      <div class="card-sub">May 25 – May 26 · % of bookings with known refundability</div>
+      <div class="card-sub">May 25 – Jun 26 · % of bookings with known refundability</div>
       <div class="chart-wrap"><canvas id="o_ref_mix"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Booking Count — Refundable vs Non-Refundable</div>
-      <div class="card-sub">May 25 – May 26 · raw counts</div>
+      <div class="card-sub">May 25 – Jun 26 · raw counts</div>
       <div class="chart-wrap"><canvas id="o_ref_cnt"></canvas></div>
     </div>
   </div>
@@ -391,7 +391,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Avg Margin % by Entity</div>
-      <div class="card-sub">May 25 – May 26 · AUD equivalent (RBA monthly FX)</div>
+      <div class="card-sub">May 25 – Jun 26 · AUD equivalent (RBA monthly FX)</div>
       <div class="chart-wrap"><canvas id="e_margin_pct"></canvas></div>
     </div>
     <div class="card">
@@ -406,7 +406,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Avg Deposit Rate % by Entity</div>
-      <div class="card-sub">May 25 – May 26 · overall</div>
+      <div class="card-sub">May 25 – Jun 26 · overall</div>
       <div class="chart-wrap"><canvas id="e_dep_rate"></canvas></div>
     </div>
     <div class="card">
@@ -418,7 +418,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Deposit Rate % — Refundable Bookings</div>
-      <div class="card-sub">May 25 – May 26 · PLT entities only</div>
+      <div class="card-sub">May 25 – Jun 26 · PLT entities only</div>
       <div class="chart-wrap"><canvas id="e_dep_rate_refund"></canvas></div>
     </div>
     <div class="card">
@@ -433,7 +433,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Avg Tenor (weeks) by Entity</div>
-      <div class="card-sub">May 25 – May 26 · PLT_USD consistently shortest</div>
+      <div class="card-sub">May 25 – Jun 26 · PLT_USD consistently shortest</div>
       <div class="chart-wrap"><canvas id="e_tenor"></canvas></div>
     </div>
     <div class="card">
@@ -449,7 +449,7 @@
 <div id="stripe" class="section">
 
   <div class="note">
-    ⚠ <strong>Stripe data note:</strong> TTV and refund data covers Dec 2025 – May 2026. Note: Apr 2026 refunds (5,248 / $1.17M AUD) and May 2026 (6,861 / $1.23M AUD) are significantly elevated — worth investigating.
+    ⚠ <strong>Stripe data note:</strong> TTV and refund data covers Dec 2025 – Jun 2026. Note: Apr 2026 refunds (5,248 / $1.17M AUD) and May 2026 (6,861 / $1.23M AUD) are significantly elevated — worth investigating.
   </div>
 
   <!-- TTV overall -->
@@ -457,7 +457,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Monthly TTV — All Entities (AUD)</div>
-      <div class="card-sub">Dec 2025 – May 2026 · Stripe charges in AUD equivalent</div>
+      <div class="card-sub">Dec 2025 – Jun 2026 · Stripe charges in AUD equivalent</div>
       <div class="chart-wrap"><canvas id="o_ttv_total"></canvas></div>
     </div>
     <div class="card">
@@ -472,7 +472,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">TTV by Entity — Stacked (AUD)</div>
-      <div class="card-sub">Dec 25 – May 26 · PLT_USD largest entity by TTV</div>
+      <div class="card-sub">Dec 25 – Jun 26 · PLT_USD largest entity by TTV</div>
       <div class="chart-wrap"><canvas id="e_ttv_stacked"></canvas></div>
     </div>
     <div class="card">
@@ -541,12 +541,12 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Monthly Refund Count</div>
-      <div class="card-sub">From Stripe · Dec 25 – May 26</div>
+      <div class="card-sub">From Stripe · Dec 25 – Jun 26</div>
       <div class="chart-wrap"><canvas id="o_refund_cnt"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Monthly Refund Amount (AUD)</div>
-      <div class="card-sub">AUD equivalent · Dec 25 – May 26</div>
+      <div class="card-sub">AUD equivalent · Dec 25 – Jun 26</div>
       <div class="chart-wrap"><canvas id="o_refund_amt"></canvas></div>
     </div>
   </div>
@@ -556,12 +556,12 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Refund Count by Entity</div>
-      <div class="card-sub">Dec 25 – May 26</div>
+      <div class="card-sub">Dec 25 – Jun 26</div>
       <div class="chart-wrap"><canvas id="e_refund_cnt"></canvas></div>
     </div>
     <div class="card">
       <div class="card-title">Refund Amount by Entity (AUD)</div>
-      <div class="card-sub">AUD equivalent · Dec 25 – May 26</div>
+      <div class="card-sub">AUD equivalent · Dec 25 – Jun 26</div>
       <div class="chart-wrap"><canvas id="e_refund_amt"></canvas></div>
     </div>
   </div>
@@ -870,7 +870,7 @@
   // ──────────────── Data ────────────────
   const M10 = ['Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26','Jun 26'];
   const M12 = ['May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26','Jun 26'];
-  const M4  = ['Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'];
+  const M4  = ['Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26','Jun 26'];
   const M_ARR = ['Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26','Jun 26'];
   const W13 = ['19 May','26 May','2 Jun','9 Jun','16 Jun','23 Jun','30 Jun','7 Jul','14 Jul','21 Jul','28 Jul','4 Aug','11 Aug','18 Aug','25 Aug','1 Sep','8 Sep','15 Sep','22 Sep','29 Sep','6 Oct','13 Oct','20 Oct','27 Oct','3 Nov','10 Nov','17 Nov','24 Nov','1 Dec','8 Dec','15 Dec','22 Dec','29 Dec','5 Jan','12 Jan','19 Jan','26 Jan','2 Feb','9 Feb','16 Feb','23 Feb','2 Mar','9 Mar','16 Mar','23 Mar','30 Mar','6 Apr','13 Apr','20 Apr','27 Apr','4 May','11 May','18 May','25 May','1 Jun','8 Jun','15 Jun','22 Jun','29 Jun','6 Jul'];
 
@@ -914,14 +914,14 @@
     sp_val: [2554499,2388329,2052534,1873163,1906784,1389000,1849327,1393453,1097538,1038269,1181491,0],
   };
 
-  // Margin % by entity (13M, May 25 – May 26)
+  // Margin % by entity (14M, May 25 – Jun 26)
   const mgPct = {
     aud: [14.16,14.16,14.16,14.16,14.16,14.67,14.65,14.65,14.65,14.63,14.66,15.13,16.16,16.09],
     usd: [15.16,15.54,15.54,15.52,16.43,17.76,17.60,17.62,18.46,19.18,19.17,19.16,19.15,18.40],
     gbp: [null,13.79,13.79,13.79,13.79,14.44,14.53,14.53,14.53,14.53,14.53,14.53,14.53,14.53],
     cad: [13.79,13.79,13.79,13.79,15.48,15.64,13.79,13.79,13.79,14.13,15.25,15.25,15.25,15.25],
     overall: [14.78,14.96,14.81,14.85,15.44,16.42,16.20,16.46,16.95,17.26,17.59,17.65,18.01,17.48],
-    median:  [14.53,15.25,14.16,15.25,15.25,16.67,17.35,17.35,17.36,18.98,18.98,18.98,15.70,null],
+    median:  [14.53,15.25,14.16,15.25,15.25,16.67,17.35,17.35,17.36,18.98,18.98,18.98,15.70,17.36],
   };
 
   // Margin amount by entity (13M, native currency — converted to AUD in mgAmtAUD)
@@ -935,8 +935,8 @@
   // Deposit rate % (13M)
   const depRate = {
     overall:    [13.99,17.73,17.14,16.99,19.18,20.73,19.71,19.84,19.02,19.98,19.60,19.11,19.20,18.92],
-    refundable: [10.06,12.83,9.81,9.62,11.67,15.47,11.91,10.56,11.04,13.84,13.85,13.54,14.21,null],
-    nonRefund:  [14.90,19.43,20.09,19.97,22.27,22.80,23.91,24.64,22.41,22.54,21.77,21.20,21.26,null],
+    refundable: [10.06,12.83,9.81,9.62,11.67,15.47,11.91,10.56,11.04,13.84,13.85,13.54,14.21,14.57],
+    nonRefund:  [14.90,19.43,20.09,19.97,22.27,22.80,23.91,24.64,22.41,22.54,21.77,21.20,21.26,21.19],
     aud: [10.86,14.08,13.48,13.88,15.75,17.52,15.83,15.62,14.80,16.34,16.14,15.64,14.86,15.42],
     usd: [15.65,20.03,20.86,19.75,22.23,22.80,22.54,22.11,21.50,22.44,21.19,20.99,21.56,20.98],
     gbp: [null,15.47,12.12,11.67,13.43,12.73,12.49,12.09,11.99,13.11,15.86,15.67,13.84,17.47],
@@ -949,8 +949,8 @@
     nonref_cnt: [5011,3575,4200,4196,3520,3472,3416,2934,5335,5235,5127,4232,4254,3388],
     ref_pct:    [21.9,28.1,31.6,31.3,31.9,31.5,35.6,34.1,29.9,29.4,27.3,27.3,29.2,34.3],
     nonref_pct: [78.1,71.9,68.4,68.7,68.1,68.5,64.4,65.9,70.1,70.6,72.7,72.7,70.8,65.7],
-    dep_ref:    [10.06,12.83,9.81,9.56,11.59,14.68,11.18,10.23,10.72,13.61,13.66,13.54,14.21,null],
-    dep_nonref: [14.90,19.43,20.08,19.97,22.24,22.40,23.66,24.44,22.23,22.37,21.65,21.20,21.26,null],
+    dep_ref:    [10.06,12.83,9.81,9.56,11.59,14.68,11.18,10.23,10.72,13.61,13.66,13.54,14.21,14.57],
+    dep_nonref: [14.90,19.43,20.08,19.97,22.24,22.40,23.66,24.44,22.23,22.37,21.65,21.20,21.26,21.19],
     tenor_ref:    [15.7,14.8,16.0,15.3,14.3,12.7,12.9,13.8,15.8,15.3,14.2,13.3,null,null],
     tenor_nonref: [11.5,10.5,11.0,10.9,9.7,9.2,8.7,9.3,10.8,11.4,10.8,9.8,null,null],
     mg_pct_ref:    [14.41,14.57,14.35,14.41,14.82,16.34,15.51,15.76,16.04,16.22,16.60,16.75,null,null],
@@ -995,7 +995,7 @@
     cad: [15.43,16.71,15.73,15.93,15.50,14.08,15.17,18.44,13.62,15.70,19.44,23.34,22.44,null],
   };
 
-  // SlicePay entity data (M13: May 25 – May 26)
+  // SlicePay entity data (M14: May 25 – Jun 26, Jun null — no SP bookings)
   // Gross margin null May–Sep 25 due to inconsistent recording pre-Oct 25
   // sp_au = AUD currency, sp_us = USD currency
   const sp_au = {
@@ -1033,20 +1033,20 @@
     amt:   [63086,68936,60150,355731,718479,505588,629999,652377,504604,381176,177856,null],
   };
 
-  // Refunds (Dec 25 – May 26)
+  // Refunds (Dec 25 – Jun 26)
   const ref = {
-    cnt_total:   [3610,3507,3279,3629,5248,6861],
-    amt_aud:     [738033,720609,732962,829271,1167176,1231807],
-    plt_aud_cnt: [1709,1390,1431,1624,2476,2537],
-    plt_usd_cnt: [1666,1833,1659,1742,2508,3988],
-    plt_gbp_cnt: [27,65,43,26,105,195],
-    sp_au_cnt:   [133,112,97,144,81,86],
-    sp_us_cnt:   [75,107,49,93,78,55],
-    plt_aud_amt: [352487,286770,282773,336347,548392,513193],
-    plt_usd_amt: [339556,359901,383917,422754,536179,606067],
-    plt_gbp_amt: [6120,13120,15517,4479,16527,42251],
-    sp_au_amt:   [18540,24329,20955,30728,23464,39466],
-    sp_us_amt:   [21330,36489,29800,34964,42614,30830],
+    cnt_total:   [3610,3507,3279,3629,5248,6861,3296],
+    amt_aud:     [738033,720609,732962,829271,1167176,1231807,763793],
+    plt_aud_cnt: [1709,1390,1431,1624,2476,2537,1641],
+    plt_usd_cnt: [1666,1833,1659,1742,2508,3988,1308],
+    plt_gbp_cnt: [27,65,43,26,105,195,241],
+    sp_au_cnt:   [133,112,97,144,81,86,68],
+    sp_us_cnt:   [75,107,49,93,78,55,38],
+    plt_aud_amt: [352487,286770,282773,336347,548392,513193,352069],
+    plt_usd_amt: [339556,359901,383917,422754,536179,606067,334742],
+    plt_gbp_amt: [6120,13120,15517,4479,16527,42251,47185],
+    sp_au_amt:   [18540,24329,20955,30728,23464,39466,24181],
+    sp_us_amt:   [21330,36489,29800,34964,42614,30830,5616],
   };
 
   // ──────────────── FX Data (RBA daily rates, monthly averages) ────────────────
@@ -1166,51 +1166,51 @@
     label: 'Plans Overdue', data: arr.plans, backgroundColor: '#ef4444'
   }], null);
 
-  // TTV data (Dec 25 – May 26)
+  // TTV data (Dec 25 – Jun 26)
   const ttv = {
-    total:   [10525750, 9841228, 11389466, 12760532, 11766668, 12624361],
-    plt_aud: [4158413,  3256868,  3952238,  4378126,  4052524,  4233221],
-    plt_usd: [4247015,  4710525,  5679464,  6703310,  6323465,  6972958],
-    plt_gbp: [249932,   244998,   239107,   218648,   195454,   209734],
-    sp_au:   [1314896,  1081643,  992107,   1080361,  894955,   919191],
-    sp_us:   [555491,   547191,   526548,   380087,   300270,   289257],
+    total:   [10525750, 9841228, 11389466, 12760532, 11766668, 12624361, 9896283],
+    plt_aud: [4158413,  3256868,  3952238,  4378126,  4052524,  4233221,  4345530],
+    plt_usd: [4247015,  4710525,  5679464,  6703310,  6323465,  6972958,  4408716],
+    plt_gbp: [249932,   244998,   239107,   218648,   195454,   209734,   119625],
+    sp_au:   [1314896,  1081643,  992107,   1080361,  894955,   919191,   869004],
+    sp_us:   [555491,   547191,   526548,   380087,   300270,   289257,   153408],
   };
 
-  // Stripe fees (Dec 25 – May 26; Dec 25 fees not available in source)
+  // Stripe fees (Dec 25 – Jun 26; Dec 25 fees not available in source)
   const fees = {
-    total:   [null, 148241, 162354, 181236, 175931, 188994],
-    plt_aud: [null,  30703,  34688,  38624,  39051,  41868],
-    plt_usd: [null,  91013, 103604, 120730, 116277, 126786],
-    plt_gbp: [null,   2397,   2501,   2211,   1922,   1897],
-    sp_au:   [null,  13667,  11319,  11812,  12200,  12012],
-    sp_us:   [null,  10461,  10243,   7860,   6481,   6430],
+    total:   [null, 148241, 162354, 181236, 175931, 188994, 156467],
+    plt_aud: [null,  30703,  34688,  38624,  39051,  41868,  50891],
+    plt_usd: [null,  91013, 103604, 120730, 116277, 126786,  88357],
+    plt_gbp: [null,   2397,   2501,   2211,   1922,   1897,   1316],
+    sp_au:   [null,  13667,  11319,  11812,  12200,  12012,  12289],
+    sp_us:   [null,  10461,  10243,   7860,   6481,   6430,   3614],
     // Effective fee rate % (fees / TTV * 100)
-    rate_aud: [null, 0.94, 0.88, 0.88, 0.96, 0.99],
-    rate_usd: [null, 1.93, 1.82, 1.80, 1.84, 1.82],
-    rate_gbp: [null, 0.98, 1.05, 1.01, 0.98, 0.90],
-    rate_sp_au: [null, 1.26, 1.14, 1.09, 1.36, 1.31],
-    rate_sp_us: [null, 1.91, 1.95, 2.07, 2.16, 2.22],
+    rate_aud: [null, 0.94, 0.88, 0.88, 0.96, 0.99, 1.17],
+    rate_usd: [null, 1.93, 1.82, 1.80, 1.84, 1.82, 2.00],
+    rate_gbp: [null, 0.98, 1.05, 1.01, 0.98, 0.90, 1.10],
+    rate_sp_au: [null, 1.26, 1.14, 1.09, 1.36, 1.31, 1.41],
+    rate_sp_us: [null, 1.91, 1.95, 2.07, 2.16, 2.22, 2.36],
   };
 
-  // Stripe fee breakdown by component (Dec 25 = null, Jan–May 26)
+  // Stripe fee breakdown by component (Dec 25 = null, Jan–May 26; Jun 26 pending)
   // Source: FinTech_Metrics_Tracking.itemized_fees_all_entities
   const feeBreakdown = {
-    interchange:  [null, 63752, 70825, 79062, 74829, 81564],
-    card_scheme:  [null, 26703, 27584, 31813, 34273, 37095],
-    volume_fee:   [null, 33738, 38849, 43008, 40501, 43150],
-    per_auth_fee: [null, 21781, 21774, 23619, 23626, 24024],
-    non_transact: [null,  2607,  3012,  2317,  2095,   168],
-    discount:     [null,  2266,  3322,  3734,  2701,  3161],  // rebate — reduces net cost
+    interchange:  [null, 63752, 70825, 79062, 74829, 81564, null],
+    card_scheme:  [null, 26703, 27584, 31813, 34273, 37095, null],
+    volume_fee:   [null, 33738, 38849, 43008, 40501, 43150, null],
+    per_auth_fee: [null, 21781, 21774, 23619, 23626, 24024, null],
+    non_transact: [null,  2607,  3012,  2317,  2095,   168, null],
+    discount:     [null,  2266,  3322,  3734,  2701,  3161, null],  // rebate — reduces net cost
     // Derived: net network cost (interchange + scheme + non_transact - discount)
-    net_network:  [null, 90796, 98099,109458,108496,115666],
+    net_network:  [null, 90796, 98099,109458,108496,115666, null],
     // Derived: stripe fees total
-    stripe_fees:  [null, 55519, 60623, 66627, 64127, 67174],
+    stripe_fees:  [null, 55519, 60623, 66627, 64127, 67174, null],
   };
-  // Interchange by card brand (Dec 25 – May 26)
+  // Interchange by card brand (Dec 25 – May 26; Jun 26 pending)
   const feeByBrand = {
-    visa:       [null, 40765, 45153, 48782, 46190, 50774],
-    mastercard: [null, 17793, 19006, 22265, 20444, 22417],
-    discover:   [null,  5194,  6666,  8015,  8195,  8373],
+    visa:       [null, 40765, 45153, 48782, 46190, 50774, null],
+    mastercard: [null, 17793, 19006, 22265, 20444, 22417, null],
+    discover:   [null,  5194,  6666,  8015,  8195,  8373, null],
   };
 
   // ── Marketing data (M12: May 25 – May 26) ──
@@ -1633,21 +1633,21 @@
   }
 
   // Weekly Stripe data — 13 weeks Mar 2 – May 31 2026 (Jun not yet in source tables)
-  // Weekly Stripe — 26 weeks: 1 Dec 2025 – 25 May 2026 · W13.slice(47, 73) · PLT only (SP excluded)
+  // Weekly Stripe — 31 weeks: 1 Dec 2025 – 29 Jun 2026 · W13.slice(28, 59) · PLT only (SP excluded)
   // fee/rate data starts 29 Dec 2025 (first 4 weeks null)
   const ws = {
-    ttv_aud:  [1192031,1078097,851989,662711,625775,671250,834361,778534,776384,887585,1025325,1004244,1052968,1000792,1084322,971216,946451,903387,872404,921594,956054,937037,961495,1012324,1017599,1005456],
-    ttv_usd:  [1157681,1067058,925547,728493,850785,956569,1089249,1035011,1237084,1214710,1320737,1435575,1773717,1464959,1693771,1537841,1487139,1425405,1397118,1467210,1475769,1596021,1504789,1583671,1571411,1623689],
-    ttv_gbp:  [53890,56425,64404,48056,52666,45553,51001,56126,72805,61442,52420,49125,75755,48004,62801,37264,49871,42454,35115,39200,51611,60681,42093,39283,42529,67257],
-    ref_aud:  [8.50,7.90,7.34,10.50,7.26,15.55,8.11,5.43,8.48,5.99,6.00,6.93,9.21,4.87,3.90,11.25,13.44,9.28,20.10,10.53,15.47,13.82,13.52,8.95,11.52,9.49],
-    ref_usd:  [8.16,9.63,7.21,7.14,5.83,11.06,5.93,9.20,6.45,7.15,5.86,6.76,7.11,5.99,4.80,5.47,8.51,7.11,6.15,11.38,8.66,7.23,21.74,6.18,5.25,4.04],
-    ref_gbp:  [3.23,0.64,3.57,3.27,1.54,8.25,5.88,7.78,2.15,2.42,3.06,6.05,12.31,3.64,1.38,1.14,1.18,9.17,0.00,7.43,6.75,21.90,16.47,31.27,22.65,10.58],
-    fee_aud:  [null,null,null,null,2665,6522,7547,7123,8143,8022,9171,8796,10041,8838,9582,8710,8065,8709,8326,8847,9971,9290,9747,9904,10052,9962],
-    fee_usd:  [null,null,null,null,9437,18799,20984,20350,24841,22979,24552,26396,31911,26771,30589,28248,25988,28015,25920,27480,26534,30024,28089,28659,28980,28786],
-    fee_gbp:  [null,null,null,null,263,431,535,530,703,646,663,523,686,498,630,408,468,459,378,390,505,552,419,310,465,528],
-    rate_aud: [null,null,null,null,0.43,0.97,0.90,0.91,1.05,0.90,0.89,0.88,0.95,0.88,0.88,0.90,0.85,0.96,0.95,0.96,1.04,0.99,1.01,0.98,0.99,0.99],
-    rate_usd: [null,null,null,null,1.11,1.97,1.93,1.97,2.01,1.89,1.86,1.84,1.80,1.83,1.81,1.84,1.75,1.96,1.85,1.87,1.80,1.88,1.87,1.81,1.84,1.77],
-    rate_gbp: [null,null,null,null,0.50,0.95,1.05,0.94,0.97,1.05,1.26,1.06,0.91,1.04,1.00,1.09,0.94,1.08,1.08,1.00,0.98,0.91,0.99,0.79,1.09,0.78],
+    ttv_aud:  [1192031,1078097,851989,662711,625775,671250,834361,778534,776384,887585,1025325,1004244,1052968,1000792,1084322,971216,946451,903387,872404,921594,956054,937037,961495,1012324,1017599,1005456,999796,1068235,1061089,992741,937182],
+    ttv_usd:  [1157681,1067058,925547,728493,850785,956569,1089249,1035011,1237084,1214710,1320737,1435575,1773717,1464959,1693771,1537841,1487139,1425405,1397118,1467210,1475769,1596021,1504789,1583671,1571411,1623689,1188329,1150633,1088929,1038942,896420],
+    ttv_gbp:  [53890,56425,64404,48056,52666,45553,51001,56126,72805,61442,52420,49125,75755,48004,62801,37264,49871,42454,35115,39200,51611,60681,42093,39283,42529,67257,39103,27090,22259,25375,33717],
+    ref_aud:  [8.50,7.90,7.34,10.50,7.26,15.55,8.11,5.43,8.48,5.99,6.00,6.93,9.21,4.87,3.90,11.25,13.44,9.28,20.10,10.53,15.47,13.82,13.52,8.95,11.52,9.49,10.38,12.09,8.79,6.20,4.90],
+    ref_usd:  [8.16,9.63,7.21,7.14,5.83,11.06,5.93,9.20,6.45,7.15,5.86,6.76,7.11,5.99,4.80,5.47,8.51,7.11,6.15,11.38,8.66,7.23,21.74,6.18,5.25,4.04,5.14,4.98,4.77,5.26,4.69],
+    ref_gbp:  [3.23,0.64,3.57,3.27,1.54,8.25,5.88,7.78,2.15,2.42,3.06,6.05,12.31,3.64,1.38,1.14,1.18,9.17,0.00,7.43,6.75,21.90,16.47,31.27,22.65,10.58,5.29,11.12,2.76,25.91,36.39],
+    fee_aud:  [null,null,null,null,2665,6522,7547,7123,8143,8022,9171,8796,10041,8838,9582,8710,8065,8709,8326,8847,9971,9290,9747,9904,10052,9962,12049,12789,12143,11278,10595],
+    fee_usd:  [null,null,null,null,9437,18799,20984,20350,24841,22979,24552,26396,31911,26771,30589,28248,25988,28015,25920,27480,26534,30024,28089,28659,28980,28786,23506,22971,21904,20721,17182],
+    fee_gbp:  [null,null,null,null,263,431,535,530,703,646,663,523,686,498,630,408,468,459,378,390,505,552,419,310,465,528,354,326,267,273,341],
+    rate_aud: [null,null,null,null,0.43,0.97,0.90,0.91,1.05,0.90,0.89,0.88,0.95,0.88,0.88,0.90,0.85,0.96,0.95,0.96,1.04,0.99,1.01,0.98,0.99,0.99,1.21,1.20,1.14,1.14,1.13],
+    rate_usd: [null,null,null,null,1.11,1.97,1.93,1.97,2.01,1.89,1.86,1.84,1.80,1.83,1.81,1.84,1.75,1.96,1.85,1.87,1.80,1.88,1.87,1.81,1.84,1.77,1.98,2.00,2.01,1.99,1.92],
+    rate_gbp: [null,null,null,null,0.50,0.95,1.05,0.94,0.97,1.05,1.26,1.06,0.91,1.04,1.00,1.09,0.94,1.08,1.08,1.00,0.98,0.91,0.99,0.79,1.09,0.78,0.91,1.20,1.20,1.08,1.01],
   };
 
   let weeklyInitialized = false;
@@ -1700,7 +1700,7 @@
     ], fmtDI);
 
     // Stripe charts — 26 weeks: 1 Dec 2025 – 25 May 2026 · W13[47..72]
-    const W13_S = W13.slice(28, 54);
+    const W13_S = W13.slice(28, 59);
     mkBar('ws_ttv', W13_S, [
       { label: 'PLT AUD', data: ws.ttv_aud, backgroundColor: '#6366f1' },
       { label: 'PLT USD', data: ws.ttv_usd, backgroundColor: '#3b82f6' },
