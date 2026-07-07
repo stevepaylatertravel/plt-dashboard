@@ -92,6 +92,18 @@
       { label: 'Cancelled Bookings', data: pc.cancelled, backgroundColor: '#a855f7' },
     ], fmtN);
 
+    // Cancellations event view — pool cancellations joined to Pipedrive cancel date (8,065/8,072 = 99.9%)
+    const cancelEvt = [12,49,100,137,153,165,173,222,214,241,220,218,162,224,219,245,302,351,335,348,337,400,304,290,275,671,589,732,306];
+
+    mkBar('bp_cancel_evt', PC_EVT_M, [
+      { label: 'Cancellations', data: cancelEvt, backgroundColor: '#a855f7' },
+    ], fmtN);
+
+    mkBar('bp_lost_vs_cancel', PC_EVT_M, [
+      { label: 'Bookings Lost (default)', data: lostEvt, backgroundColor: '#dc2626' },
+      { label: 'Cancelled', data: cancelEvt, backgroundColor: '#a855f7' },
+    ], fmtN, true);
+
     mkLine('bp_rates', PC_M, [
       { label: 'Default Rate %', data: pctOf(pc.defaulted), borderColor: '#ef4444', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
       { label: 'Cancellation Rate %', data: pctOf(pc.cancelled), borderColor: '#a855f7', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3 },
@@ -976,6 +988,20 @@
       <div class="card-title">Default &amp; Cancellation Rate % by Cohort</div>
       <div class="card-sub">% of cohort · recent cohorts not yet settled</div>
       <div class="chart-wrap"><canvas id="bp_rates"></canvas></div>
+    </div>
+  </div>
+
+  <div class="section-label">Cancellations — Event View (when the cancellation occurred)</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Cancellations by Month — As Occurred</div>
+      <div class="card-sub">Pool cancellations dated by Pipedrive cancel date · 99.9% coverage</div>
+      <div class="chart-wrap"><canvas id="bp_cancel_evt"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Lost vs Cancelled by Month — As Occurred</div>
+      <div class="card-sub">Defaults (Pipedrive lost date) vs cancellations (cancel date), pool bookings only</div>
+      <div class="chart-wrap"><canvas id="bp_lost_vs_cancel"></canvas></div>
     </div>
   </div>
 
