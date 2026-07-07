@@ -903,6 +903,20 @@
     </div>
   </div>
 
+  <div class="section-label">Book Attrition — As Occurred</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Bookings Lost by Week — As Occurred</div>
+      <div class="card-sub">Pool defaults dated by Pipedrive lost date · spikes = batch closures by collections</div>
+      <div class="chart-wrap"><canvas id="w_lost_evt"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Cancellations by Week — As Occurred</div>
+      <div class="card-sub">Pool cancellations dated by Pipedrive cancel date · 99.9% coverage</div>
+      <div class="chart-wrap"><canvas id="w_cancel_evt"></canvas></div>
+    </div>
+  </div>
+
 </div>
 
 <!-- ═══════════════════ BOOK PERFORMANCE ═══════════════════ -->
@@ -1961,6 +1975,18 @@
       { label: 'PLT USD', data: ws.rate_usd, borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2.5, pointRadius: 3, fill: false, tension: 0.3, spanGaps: true },
       { label: 'PLT GBP', data: ws.rate_gbp, borderColor: '#10b981', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 3, fill: false, tension: 0.3, spanGaps: true },
     ], v => (+v).toFixed(2) + '%');
+
+    // Book attrition as occurred — pool bookings joined to Pipedrive lost/cancel dates (same defs as Book Performance tab)
+    const wkLostEvt = [60,66,77,51,62,79,48,83,77,47,62,40,56,56,44,48,45,67,79,66,63,55,57,85,89,43,187,62,783,362,194,50,57,73,58,41,82,57,205,221,151,137,62,111,83,58,235,105,92,220,108,62,68,134,711,63,67,74,95,73];
+    const wkCancelEvt = [54,51,60,62,57,66,98,84,81,71,85,72,60,83,76,93,75,81,71,90,78,73,68,64,101,111,106,83,77,73,69,65,64,65,92,47,61,64,70,53,69,88,151,147,151,170,163,156,131,128,454,96,73,84,70,90,66,74,59,79];
+
+    mkBar('w_lost_evt', W13, [
+      { label: 'Bookings Lost', data: wkLostEvt, backgroundColor: '#dc2626' },
+    ], fmtN);
+
+    mkBar('w_cancel_evt', W13, [
+      { label: 'Cancellations', data: wkCancelEvt, backgroundColor: '#a855f7' },
+    ], fmtN);
   }
 
   let marketingInitialized = false;
