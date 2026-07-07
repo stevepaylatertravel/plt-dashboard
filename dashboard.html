@@ -514,7 +514,7 @@
   <div class="grid-2">
     <div class="card">
       <div class="card-title">Fee Components — Stacked (AUD)</div>
-      <div class="card-sub">Jan–Apr 26 · Interchange is largest cost · Dec 25 not available</div>
+      <div class="card-sub">Jan–Jun 26 · Interchange is largest cost · Dec 25 not available</div>
       <div class="chart-wrap"><canvas id="s_fee_components"></canvas></div>
     </div>
     <div class="card">
@@ -1192,25 +1192,25 @@
     rate_sp_us: [null, 1.91, 1.95, 2.07, 2.16, 2.22, 2.36],
   };
 
-  // Stripe fee breakdown by component (Dec 25 = null, Jan–May 26; Jun 26 pending)
+  // Stripe fee breakdown by component (Dec 25 = null, Jan–Jun 26; May restated to settled values)
   // Source: FinTech_Metrics_Tracking.itemized_fees_all_entities
   const feeBreakdown = {
-    interchange:  [null, 63752, 70825, 79062, 74829, 81564, null],
-    card_scheme:  [null, 26703, 27584, 31813, 34273, 37095, null],
-    volume_fee:   [null, 33738, 38849, 43008, 40501, 43150, null],
-    per_auth_fee: [null, 21781, 21774, 23619, 23626, 24024, null],
-    non_transact: [null,  2607,  3012,  2317,  2095,   168, null],
-    discount:     [null,  2266,  3322,  3734,  2701,  3161, null],  // rebate — reduces net cost
+    interchange:  [null, 63752, 70825, 79062, 74829, 84241, 77483],
+    card_scheme:  [null, 26703, 27584, 31813, 34273, 38048, 33659],
+    volume_fee:   [null, 33738, 38849, 43008, 40501, 44002, 41303],
+    per_auth_fee: [null, 21781, 21774, 23619, 23626, 24454, 22303],
+    non_transact: [null,  2607,  3012,  2317,  2095,  1894,  1853],
+    discount:     [null,  2266,  3322,  3734,  2701,  3246,  2585],  // rebate — reduces net cost
     // Derived: net network cost (interchange + scheme + non_transact - discount)
-    net_network:  [null, 90796, 98099,109458,108496,115666, null],
+    net_network:  [null, 90796, 98099,109458,108496,120937,110410],
     // Derived: stripe fees total
-    stripe_fees:  [null, 55519, 60623, 66627, 64127, 67174, null],
+    stripe_fees:  [null, 55519, 60623, 66627, 64127, 68456, 63606],
   };
-  // Interchange by card brand (Dec 25 – May 26; Jun 26 pending)
+  // Interchange by card brand (Dec 25 – Jun 26; May restated to settled values)
   const feeByBrand = {
-    visa:       [null, 40765, 45153, 48782, 46190, 50774, null],
-    mastercard: [null, 17793, 19006, 22265, 20444, 22417, null],
-    discover:   [null,  5194,  6666,  8015,  8195,  8373, null],
+    visa:       [null, 40765, 45153, 48782, 46190, 52355, 48864],
+    mastercard: [null, 17793, 19006, 22265, 20444, 23220, 20930],
+    discover:   [null,  5194,  6666,  8015,  8195,  8666,  7688],
   };
 
   // ── Marketing data (M12: May 25 – May 26) ──
