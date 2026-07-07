@@ -168,10 +168,10 @@
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Cancellations</div>
-      <div class="kpi-value">1,181</div>
-      <div class="kpi-sub">Feb 26 (latest stable)</div>
-      <span class="kpi-pill pill-g">▼ 11.9% vs Jan</span>
-      <div class="kpi-vs">Jan: 1,340</div>
+      <div class="kpi-value">1,767</div>
+      <div class="kpi-sub">May 26 (Jun partial: 1,194)</div>
+      <span class="kpi-pill pill-r">▲ 17.8% vs Apr</span>
+      <div class="kpi-vs">Apr: 1,500</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-label">Arrears Rate</div>
@@ -183,7 +183,7 @@
   </div>
 
   <div class="note">
-    ⚠ <strong>Data notes:</strong> Margin &amp; deposit totals are in native booking currencies (AUD, USD, GBP, CAD) — not FX-converted. Stripe TTV &amp; refund data covers Dec 2025 – Jun 2026 (see Stripe Data tab). Cancellations lag ~4–6 weeks — Feb 26 shown as latest stable (Mar/Apr/May/Jun still settling). Arrears shown by payment plan creation month (cohort view). SP margin data starts Oct 2025 (prior months showed inconsistent recording).
+    ⚠ <strong>Data notes:</strong> Margin &amp; deposit totals are in native booking currencies (AUD, USD, GBP, CAD) — not FX-converted. Stripe TTV &amp; refund data covers Dec 2025 – Jun 2026 (see Stripe Data tab). Cancellations from Pipedrive cancel dates (BigQuery) — Jun 26 partial (~4–6 wk lag); series restated to settled counts. Arrears shown by payment plan creation month (cohort view). SP margin data starts Oct 2025 (prior months showed inconsistent recording).
   </div>
 
   <!-- FX Rates -->
@@ -223,7 +223,7 @@
     </div>
     <div class="card">
       <div class="card-title">Cancellations per Month</div>
-      <div class="card-sub">Via Pipedrive · May 25 – Feb 26 (Mar lag)</div>
+      <div class="card-sub">Pipedrive cancel dates via BigQuery · May 25 – Jun 26 (Jun still settling)</div>
       <div class="chart-wrap"><canvas id="o_cancellations"></canvas></div>
     </div>
   </div>
@@ -1021,8 +1021,8 @@
     fortnightly: [2511,2532,2094,2003,1914,1600,3106,2974,2845,2277,2427,2292],
   };
 
-  // Cancellations (13M, Mar=4 lag, Apr/May=null)
-  const cancels = [1255,1465,1328,1395,1282,1033,1079,1310,1340,1181,4,null,null,null];
+  // Cancellations (14M, from db_pipedrive_deal cancel dates — Jun 26 partial, ~4-6wk lag)
+  const cancels = [1249,1454,1313,1371,1269,1030,1084,1316,1349,1385,1775,1500,1767,1194];
 
   // New customers (13M)
   const newCust = [4265,3323,3915,3793,3128,3126,3045,2497,4451,4398,4092,3342,3518,2970];
